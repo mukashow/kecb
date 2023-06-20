@@ -1,10 +1,16 @@
 import { createGlobalStyle } from 'styled-components';
 import { Header } from './components';
+import { Route, Routes } from 'react-router-dom';
+import { About, Home } from './pages';
 
 export const App = () => {
   return (
     <>
       <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+      </Routes>
       <GlobalStyle />
     </>
   );

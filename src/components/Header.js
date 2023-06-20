@@ -1,5 +1,5 @@
-import React, { useRef, useState } from 'react';
-import { Link as NavLink } from 'react-router-dom';
+import React, { useEffect, useRef, useState } from 'react';
+import { Link as NavLink, useLocation } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import { Container } from './Container';
 import logo from '../images/logo.png';
@@ -10,14 +10,21 @@ export const Header = () => {
   const [navOpen, setNavOpen] = useState(false);
   const [langDropdownOpen, setLangDropdownOpen] = useState(false);
   const langRef = useRef();
+  const { pathname } = useLocation();
   useOutsideClick(langRef, () => setLangDropdownOpen(false));
+
+  useEffect(() => {
+    setNavOpen(false);
+  }, [pathname]);
 
   return (
     <>
       {window.innerWidth < 1025 && (
         <Root $mobile>
           <Top $mobile>
-            <Logo src={logo} />
+            <Logo to="/">
+              <img src={logo} />
+            </Logo>
             <div ref={langRef} style={{ position: 'relative' }}>
               <Language onClick={() => setLangDropdownOpen(!langDropdownOpen)}>
                 <Icon id="globus" />
@@ -32,7 +39,11 @@ export const Header = () => {
       <Root $open={navOpen}>
         <Close id="close" onClick={() => setNavOpen(false)} />
         <Top>
-          {window.innerWidth > 1024 && <Logo src={logo} />}
+          {window.innerWidth > 1024 && (
+            <Logo to="/">
+              <img src={logo} />
+            </Logo>
+          )}
           <Search>
             <SearchIcon id="search" />
             <input type="text" />
@@ -66,7 +77,7 @@ export const Header = () => {
               <NavDropdownBtn>
                 О центре <Icon id="arrowDown" width={16} height={16} />
                 <NavDropdown>
-                  <NavDropdownLink>Приветственное слово директора</NavDropdownLink>
+                  <NavDropdownLink to="/about">Приветственное слово директора</NavDropdownLink>
                   <NavDropdownLink>История и основная информация центра</NavDropdownLink>
                   <NavDropdownLink>Деятельность центра</NavDropdownLink>
                 </NavDropdown>
@@ -163,10 +174,15 @@ const Top = styled(Container)`
     `}
 `;
 
-const Logo = styled.img`
+const Logo = styled(NavLink)`
   display: block;
-  height: clamp(43px, 4vw, 53px);
   margin-right: 10px;
+  cursor: pointer;
+
+  img {
+    display: block;
+    height: clamp(43px, 4vw, 53px);
+  }
 
   @media (max-width: 1024px) {
     margin-right: auto;
