@@ -1,8 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export const Button = ({ children, style }) => {
-  return <Root style={style}>{children}</Root>;
+export const Button = ({ children, style, as = 'button' }) => {
+  return (
+    <Root style={style} as={as}>
+      {children}
+    </Root>
+  );
 };
 
 const Root = styled.button`
@@ -14,6 +18,9 @@ const Root = styled.button`
   color: white;
   padding: 0 30px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   &:hover {
     background: #103a73;
