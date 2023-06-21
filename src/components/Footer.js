@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import DG from '2gis-maps';
@@ -6,12 +6,18 @@ import { useSelector } from 'react-redux';
 import blob from '../images/blob.svg';
 import { Container } from './Container';
 import { Icon, Text } from '../ui';
+import { api } from '../api';
 
 export const Footer = () => {
   const contacts = useSelector(state => state.main.contacts);
+  const [geolocation, setGeolocation] = useState(null);
   const { t } = useTranslation();
 
   useEffect(() => {
+    api('rental/')
+      .then(({ data }) => setGeolocation(data))
+      .catch(console.log);
+
     const link =
       'https://2gis.kg/bishkek/firm/70000001019329204/74.612502%2C42.878041?m=74.627208%2C42.870712%2F14.32';
     const coords = link
@@ -30,7 +36,7 @@ export const Footer = () => {
       DG.marker(coords).addTo(map);
     });
   }, []);
-
+  console.log(geolocation);
   return (
     <Root>
       <Inner>

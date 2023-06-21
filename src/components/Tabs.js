@@ -1,14 +1,14 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-export const Tabs = ({ tabs }) => {
+export const Tabs = ({ tabs, leftAlign }) => {
   const { pathname } = useLocation();
 
   return (
-    <Root>
-      {tabs.map(({ title, path }) => (
-        <Tab key={path} $active={pathname === path} to={path}>
+    <Root $leftAlign={leftAlign}>
+      {tabs.map(({ title, path, currentPath }) => (
+        <Tab key={path} $active={pathname.includes(currentPath || path)} to={path}>
           {title}
         </Tab>
       ))}
@@ -30,6 +30,7 @@ const Tab = styled(Link)`
 
   @media (max-width: 1024px) {
     border: 1px solid #004098;
+    font-size: 12px;
   }
 `;
 
@@ -39,6 +40,11 @@ const Root = styled.div`
   border-radius: 30px;
   display: flex;
   margin: 0 auto;
+  ${({ $leftAlign }) =>
+    $leftAlign &&
+    css`
+      margin: 0;
+    `}
   width: max-content;
 
   @media (max-width: 1024px) {
