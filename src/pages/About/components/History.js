@@ -26,7 +26,7 @@ export const History = () => {
   };
 
   useEffect(() => {
-    api('history')
+    api('history/')
       .then(({ data }) => setData(data))
       .catch(console.log);
   }, []);

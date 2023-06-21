@@ -36,7 +36,7 @@ export const Footer = () => {
       DG.marker(coords).addTo(map);
     });
   }, []);
-  console.log(geolocation);
+
   return (
     <Root>
       <Inner>
