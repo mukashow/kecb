@@ -19,12 +19,14 @@ export const News = () => {
           description="Lorem ipsum dolor sit amet adipcing amet adipcingamet adipci aqua lorem ipsum."
           type="Рубрика"
           date="20 января 2023"
+          arrow
         />
         <Card
           title="Title"
           description="Lorem ipsum dolor sit amet adipcing amet adipcingamet adipci aqua lorem ipsum."
           type="Рубрика"
           date="20 января 2023"
+          arrow
         />
       </Grid>
     </Root>

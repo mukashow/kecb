@@ -13,8 +13,6 @@ export const Speech = () => {
       .catch(console.log);
   }, []);
 
-  console.log(data);
-
   return (
     <Root>
       <div>

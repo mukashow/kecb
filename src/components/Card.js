@@ -3,12 +3,23 @@ import styled, { css } from 'styled-components';
 import img from '../images/image.svg';
 import { Icon, Text } from '../ui';
 
-export const Card = ({ title, description, type, date, direction = 'row', subtitle }) => {
+export const Card = ({
+  title,
+  description,
+  type,
+  date,
+  direction = 'row',
+  subtitle,
+  image,
+  history,
+  arrow,
+  className,
+}) => {
   return (
-    <Root $direction={direction}>
+    <Root $direction={direction} className={className}>
       <div>
         <img src={img} />
-        <img src="https://www.imgworlds.com/wp-content/themes/IMG2019/img/phase3/slides/cartoon-girls.png" />
+        <img src={image} />
       </div>
       <Content>
         <Text
@@ -24,7 +35,12 @@ export const Card = ({ title, description, type, date, direction = 'row', subtit
             {subtitle}
           </Text>
         )}
-        <Text fz={14} lh="24px" fw={direction === 'row' ? 400 : 300}>
+        <Text
+          fz={14}
+          lh="24px"
+          fw={direction === 'column' || history ? 300 : 400}
+          {...(history && { color: '#4D5257' })}
+        >
           {description}
         </Text>
         {type && (
@@ -37,7 +53,7 @@ export const Card = ({ title, description, type, date, direction = 'row', subtit
             {date}
           </Text>
         )}
-        {direction === 'row' && <Icon id="arrowRight" />}
+        {arrow && <Icon id="arrowRight" />}
       </Content>
     </Root>
   );
@@ -56,13 +72,15 @@ const Root = styled.div`
   }
 
   img {
-    min-width: 178px;
-    min-height: 150px;
     height: 100%;
     display: block;
     object-fit: cover;
     flex-shrink: 2;
     background: #e5edf4;
+
+    &:first-child {
+      width: 178px;
+    }
 
     &:nth-child(2) {
       position: absolute;

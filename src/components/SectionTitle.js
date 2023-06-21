@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text } from '../ui';
+import { Icon, Text } from '../ui';
 import styled from 'styled-components';
 
 export const SectionTitle = ({

@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 import { Container, Tabs } from '../../components';
 import { Text } from '../../ui';
 import blob from '../../images/blobFilled.svg';
-import { Speech } from './components';
+import { History, Speech } from './components';
 
 export const About = () => {
   const { pathname } = useLocation();
@@ -34,6 +34,7 @@ export const About = () => {
         />
         <Container style={{ paddingTop: 'clamp(40px, 5vw, 60px)' }}>
           {pathname === '/about/speech' && <Speech />}
+          {pathname === '/about/history' && <History />}
         </Container>
       </Content>
     </>
