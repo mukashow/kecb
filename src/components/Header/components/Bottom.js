@@ -20,11 +20,14 @@ export const Bottom = React.forwardRef(({ setLangDropdownOpen, langDropdownOpen 
               <NavDropdownLink to="/about/activity">Деятельность центра</NavDropdownLink>
             </NavDropdown>
           </NavDropdownBtn>
-          <NavDropdownBtn>
-            Объявления <Icon id="arrowDown" width={16} height={16} />
-          </NavDropdownBtn>
+          <NavDropdownBtnLink to="/news">Объявления</NavDropdownBtnLink>
           <NavDropdownBtn>
             Курсы центра <Icon id="arrowDown" width={16} height={16} />
+            <NavDropdown>
+              <NavDropdownLink to="/courses/course">Информация о курсах центра</NavDropdownLink>
+              <NavDropdownLink to="/courses/lesson">Информация о занятиях</NavDropdownLink>
+              <NavDropdownLink to="/courses/material">Материалы для уроков</NavDropdownLink>
+            </NavDropdown>
           </NavDropdownBtn>
           <NavDropdownBtn>
             Обучения в Корее <Icon id="arrowDown" width={16} height={16} />

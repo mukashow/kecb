@@ -7,7 +7,7 @@ export const Card = ({
   title,
   description,
   type,
-  date,
+  data,
   direction = 'row',
   subtitle,
   image,
@@ -48,9 +48,9 @@ export const Card = ({
             {type}
           </Text>
         )}
-        {date && (
+        {data && (
           <Text fz={12} lh="24px">
-            {date}
+            {new Date(data).toLocaleDateString()}
           </Text>
         )}
         {arrow && <Icon id="arrowRight" />}

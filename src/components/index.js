@@ -6,3 +6,5 @@ export { Card } from './Card';
 export { Pagination } from './Swiper';
 export { PopupSlider } from './PopupSlider';
 export { Tabs } from './Tabs';
+export { Pagination as AppPagination } from './Pagination';
+export { DocCard } from './DocCard';

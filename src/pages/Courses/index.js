@@ -4,9 +4,9 @@ import { useLocation } from 'react-router-dom';
 import { Container, Tabs } from '../../components';
 import { Text } from '../../ui';
 import blob from '../../images/blobFilled.svg';
-import { Activity, History, Speech } from './components';
+import { Course, Material } from './components';
 
-export const About = () => {
+export const Courses = () => {
   const { pathname } = useLocation();
 
   return (
@@ -19,29 +19,33 @@ export const About = () => {
       >
         <Container>
           <Text fz="clamp(32px, 4vw, 50px)" color="white" as="h1" fw={700}>
-            О центре
+            Курсы центра
           </Text>
         </Container>
       </Banner>
       <Content>
         <Blob src={blob} />
+        <Blob
+          src={blob}
+          style={{
+            bottom: 'auto',
+            left: 'auto',
+            transform: 'rotate(180deg)',
+            right: 0,
+            top: '15%',
+          }}
+        />
         <Tabs
           tabs={[
-            { title: 'Приветственное слово директора', path: '/about/speech' },
-            { title: 'История и основная информация центра', path: '/about/history' },
-            {
-              title: 'Деятельность центра',
-              path: '/about/activity/distribution',
-              currentPath: '/about/activity',
-            },
+            { title: 'Информация о курсах центра', path: '/courses/course' },
+            { title: 'Информация о занятиях', path: '/courses/lesson' },
+            { title: 'Материалы для уроков', path: '/courses/material' },
           ]}
         />
         <Container style={{ paddingTop: 'clamp(40px, 5vw, 60px)' }}>
-          {pathname === '/about/speech' && <Speech />}
-          {pathname === '/about/history' && <History />}
-          {pathname === '/about/activity' && <Activity />}
-          {pathname === '/about/activity/distribution' && <Activity />}
-          {pathname === '/about/activity/support' && <Activity />}
+          {pathname === '/courses/course' && <Course />}
+          {pathname === '/courses/lesson' && <Course />}
+          {pathname === '/courses/material' && <Material />}
         </Container>
       </Content>
     </>
