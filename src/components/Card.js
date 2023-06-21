@@ -5,6 +5,7 @@ import { Icon, Text } from '../ui';
 
 export const Card = ({
   title,
+  titleColor,
   description,
   type,
   data,
@@ -14,6 +15,7 @@ export const Card = ({
   history,
   arrow,
   className,
+  list,
 }) => {
   return (
     <Root $direction={direction} className={className}>
@@ -22,18 +24,27 @@ export const Card = ({
         <img src={image} />
       </div>
       <Content>
-        <Text
-          fz="clamp(16px, 2vw, 18px)"
-          mb={direction === 'row' ? 4 : 12}
-          color="#0C101A"
-          fw={700}
-        >
-          {title}
-        </Text>
+        {title && (
+          <Text
+            fz="clamp(16px, 2vw, 18px)"
+            mb={direction === 'row' ? 4 : 12}
+            color={titleColor || '#0C101A'}
+            fw={700}
+          >
+            {title}
+          </Text>
+        )}
         {subtitle && (
           <Text fz="clamp(14px, 2vw, 16px)" lh="24px" mb={19}>
             {subtitle}
           </Text>
+        )}
+        {list && (
+          <Ul>
+            {list.map(li => (
+              <li key={li}>{li}</li>
+            ))}
+          </Ul>
         )}
         <Text
           fz={14}
@@ -115,4 +126,11 @@ const Content = styled.div`
     bottom: 24px;
     right: 24px;
   }
+`;
+
+const Ul = styled.ul`
+  font-weight: 300;
+  font-size: clamp(14px, 1vw, 16px);
+  line-height: 24px;
+  padding-left: 11px;
 `;

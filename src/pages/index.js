@@ -3,3 +3,5 @@ export { About } from './About';
 export { News } from './News';
 export { NewsDetail } from './NewsDetail';
 export { Courses } from './Courses';
+export { Education } from './Education';
+export { EducationDetail } from './EducationDetail';

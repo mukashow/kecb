@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 import { Route, Routes } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { About, Courses, Home, News, NewsDetail } from './pages';
+import { About, Courses, Education, EducationDetail, Home, News, NewsDetail } from './pages';
 import { Footer, Header } from './components';
 import { fetchContacts } from './store/action';
 
@@ -29,6 +29,9 @@ export const App = () => {
           <Route path="/courses/course" element={<Courses />} />
           <Route path="/courses/lesson" element={<Courses />} />
           <Route path="/courses/material" element={<Courses />} />
+          <Route path="/education/info" element={<Education />} />
+          <Route path="/education/announcement" element={<Education />} />
+          <Route path="/education_info/:id" element={<EducationDetail />} />
         </Routes>
       </main>
       <Footer />

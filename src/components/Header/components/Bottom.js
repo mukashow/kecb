@@ -31,6 +31,12 @@ export const Bottom = React.forwardRef(({ setLangDropdownOpen, langDropdownOpen 
           </NavDropdownBtn>
           <NavDropdownBtn>
             Обучения в Корее <Icon id="arrowDown" width={16} height={16} />
+            <NavDropdown>
+              <NavDropdownLink to="/education/info">Информация о вузах</NavDropdownLink>
+              <NavDropdownLink to="/education/announcement">
+                Объявления о наборе студентов
+              </NavDropdownLink>
+            </NavDropdown>
           </NavDropdownBtn>
           <NavDropdownBtn>
             Библиотека данных <Icon id="arrowDown" width={16} height={16} />
@@ -138,7 +144,8 @@ const NavDropdownBtn = styled.div`
 
 const NavDropdownBtnLink = styled(NavLink)`
   text-decoration: none;
-  ${navDropdownBtnStyle}
+  ${navDropdownBtnStyle};
+  cursor: pointer;
 `;
 
 const Navigation = styled.nav`
