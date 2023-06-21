@@ -1,28 +1,26 @@
 import { css } from 'styled-components';
 
 export const Pagination = css`
-  .swiper-pagination {
-    bottom: 0 !important;
+  bottom: 0 !important;
 
-    .swiper-pagination-bullet {
-      opacity: 0.5;
-      max-width: clamp(60px, 7vw, 100px);
-      width: 100%;
-      background: #4361ee;
-      height: 4px;
-      border-radius: 2px;
-      margin: 0 clamp(12px, 3vw, 20px);
+  .swiper-pagination-bullet {
+    opacity: 0.5 !important;
+    max-width: clamp(60px, 7vw, 100px);
+    width: 100%;
+    background: #4361ee;
+    height: 4px;
+    border-radius: 2px;
+    margin: 0 clamp(12px, 3vw, 20px) !important;
 
-      &.swiper-pagination-bullet-active {
-        opacity: 1;
-      }
+    &.swiper-pagination-bullet-active {
+      opacity: 1 !important;
     }
   }
 `;
 
 export const Navigation = css`
-  width: clamp(32px, 6vw, 70px);
-  height: clamp(32px, 6vw, 70px);
+  width: clamp(32px, 5vw, 70px);
+  height: clamp(32px, 5vw, 70px);
   background: white;
   border-radius: 50%;
   display: flex;

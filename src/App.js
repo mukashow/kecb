@@ -16,10 +16,13 @@ export const App = () => {
   return (
     <Root>
       <Header />
-      <main>
+      <main style={{ position: 'relative' }}>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/about_center/" element={<About />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/about/speech" element={<About />} />
+          <Route path="/about/activity" element={<About />} />
+          <Route path="/about/history" element={<About />} />
         </Routes>
       </main>
       <Footer />
@@ -42,6 +45,7 @@ const Root = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  overflow: hidden;
 
   main {
     flex-grow: 1;

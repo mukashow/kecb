@@ -13,9 +13,11 @@ export const Bottom = React.forwardRef(({ setLangDropdownOpen, langDropdownOpen 
           <NavDropdownBtn>
             О центре <Icon id="arrowDown" width={16} height={16} />
             <NavDropdown>
-              <NavDropdownLink to="/about">Приветственное слово директора</NavDropdownLink>
-              <NavDropdownLink>История и основная информация центра</NavDropdownLink>
-              <NavDropdownLink>Деятельность центра</NavDropdownLink>
+              <NavDropdownLink to="/about/speech">Приветственное слово директора</NavDropdownLink>
+              <NavDropdownLink to="/about/history">
+                История и основная информация центра
+              </NavDropdownLink>
+              <NavDropdownLink to="/about/activity">Деятельность центра</NavDropdownLink>
             </NavDropdown>
           </NavDropdownBtn>
           <NavDropdownBtn>

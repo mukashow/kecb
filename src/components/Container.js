@@ -1,8 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export const Container = ({ children, className }) => {
-  return <Root className={className}>{children}</Root>;
+export const Container = ({ children, className, style }) => {
+  return (
+    <Root className={className} style={style}>
+      {children}
+    </Root>
+  );
 };
 
 const Root = styled.div`

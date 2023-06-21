@@ -52,6 +52,8 @@ export const Header = () => {
 };
 
 const Root = styled.header`
+  position: relative;
+  z-index: 5;
   background: white;
   display: flex;
   flex-direction: column;

@@ -12,7 +12,7 @@ export const SectionTitle = ({
   children,
 }) => {
   return (
-    <Root>
+    <Root style={{ marginBottom: mb }}>
       <svg
         width={iconWidth}
         height={iconHeight}
@@ -75,7 +75,7 @@ export const SectionTitle = ({
           </filter>
         </defs>
       </svg>
-      <Text color={color} fz={fz} fw={fw} mb={mb} as="h2">
+      <Text color={color} fz={fz} fw={fw} as="h2">
         {children}
       </Text>
     </Root>

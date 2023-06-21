@@ -20,14 +20,18 @@ export const Top = () => {
         <input type="text" />
       </Search>
       <Links>
-        <Link href={`tel:${contacts?.phone1}`}>
-          <Icon id="phone" />
-          {contacts?.phone1}
-        </Link>
-        <Link href={`tel:${contacts?.phone2}`}>
-          <Icon id="phone" />
-          {contacts?.phone2}
-        </Link>
+        {contacts?.phone1 && (
+          <Link href={`tel:${contacts.phone1}`}>
+            <Icon id="phone" />
+            {contacts.phone1}
+          </Link>
+        )}
+        {contacts?.phone2 && (
+          <Link href={`tel:${contacts.phone2}`}>
+            <Icon id="phone" />
+            {contacts.phone2}
+          </Link>
+        )}
         <Link>
           <Icon id="calendar" />
           пн-пт 9:00 - 18:00
