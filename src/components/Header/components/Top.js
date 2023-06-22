@@ -32,9 +32,9 @@ export const Top = () => {
             {contacts.phone2}
           </Link>
         )}
-        <Link>
+        <Link style={{ whiteSpace: 'break-spaces' }}>
           <Icon id="calendar" />
-          пн-пт 9:00 - 18:00
+          {contacts?.graph}
         </Link>
       </Links>
       <Socials>
