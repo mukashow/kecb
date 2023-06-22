@@ -22,7 +22,7 @@ export const Gallery = () => {
     <Root>
       <SectionTitle>{t('gallery')}</SectionTitle>
       <Button as="a" style={{ marginLeft: window.innerWidth >= 700 ? 'auto' : 0 }}>
-        Вся галерея
+        {t('allGallery')}
       </Button>
       <Slider
         spaceBetween={15}

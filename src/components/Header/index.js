@@ -6,6 +6,7 @@ import { Container } from '../Container';
 import { Top as TopRoot, Bottom } from './components';
 import { Icon } from '../../ui';
 import { useOutsideClick } from '../../hooks';
+import { useTranslation } from 'react-i18next';
 
 export const Header = () => {
   const [navOpen, setNavOpen] = useState(false);
@@ -13,6 +14,13 @@ export const Header = () => {
   const langRef = useRef();
   const { pathname } = useLocation();
   useOutsideClick(langRef, () => setLangDropdownOpen(false));
+  const { i18n } = useTranslation();
+
+  const onChangeLang = () => {
+    const lang = i18n.language.match(/ru-RU|ru/) ? 'kr' : 'ru';
+    i18n.changeLanguage(lang);
+    setLangDropdownOpen(false);
+  };
 
   useEffect(() => {
     setNavOpen(false);
@@ -29,9 +37,13 @@ export const Header = () => {
             <div ref={langRef} style={{ position: 'relative' }}>
               <Language onClick={() => setLangDropdownOpen(!langDropdownOpen)}>
                 <Icon id="globus" />
-                RU
+                {i18n.language.match(/ru-RU|ru/) ? 'RU' : 'KR'}
               </Language>
-              {langDropdownOpen && <AvailableLang>KR</AvailableLang>}
+              {langDropdownOpen && (
+                <AvailableLang onClick={onChangeLang}>
+                  {i18n.language.match(/ru-RU|ru/) ? 'KR' : 'RU'}
+                </AvailableLang>
+              )}
             </div>
             <Burger id="burger" onClick={() => setNavOpen(true)} />
           </Top>

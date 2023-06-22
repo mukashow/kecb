@@ -2,9 +2,12 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { DocCard, SectionTitle } from '../../../components';
 import { api } from '../../../api';
+import { useTranslation } from 'react-i18next';
+import JsFileDownloader from 'js-file-downloader';
 
 export const Material = () => {
   const [data, setData] = useState([]);
+  const { t } = useTranslation();
 
   useEffect(() => {
     api('lessonmaterials/')
@@ -15,11 +18,17 @@ export const Material = () => {
   return (
     <Root>
       <SectionTitle fz="clamp(20px, 3vw, 32px)" mb="clamp(20px, 3vw, 38px)">
-        Материалы для уроков
+        {t('materialForLesson')}
       </SectionTitle>
       <Grid>
         {data.map(item => (
-          <DocCard key={item.id} {...item} />
+          <div
+            key={item.id}
+            style={{ cursor: 'pointer' }}
+            onClick={() => new JsFileDownloader({ url: item.file })}
+          >
+            <DocCard {...item} />
+          </div>
         ))}
       </Grid>
     </Root>

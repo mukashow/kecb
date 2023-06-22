@@ -3,15 +3,17 @@ import styled from 'styled-components';
 import { Card, SectionTitle } from '../../../components';
 import { api } from '../../../api';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 export const Info = () => {
   const [data, setData] = useState([]);
+  const { t } = useTranslation();
 
   const list = (address, category, date) => {
     return [
-      `Категория: ${category}`,
-      `Адрес: ${address}`,
-      `Дата создания: ${new Date(date).toLocaleDateString()}`,
+      `${t('category')}: ${category}`,
+      `${t('address')}: ${address}`,
+      `${t('creationDate')}: ${new Date(date).toLocaleDateString()}`,
     ];
   };
 
@@ -24,7 +26,7 @@ export const Info = () => {
   return (
     <Root>
       <SectionTitle fz="clamp(20px, 3vw, 32px)" mb="clamp(20px, 3vw, 38px)">
-        Информация о вузах
+        {t('educInfo')}
       </SectionTitle>
       <Grid>
         {data.map(item => (

@@ -17,25 +17,21 @@ export const Footer = () => {
     api('rental/')
       .then(({ data }) => setGeolocation(data))
       .catch(console.log);
-
-    const link =
-      'https://2gis.kg/bishkek/firm/70000001019329204/74.612502%2C42.878041?m=74.627208%2C42.870712%2F14.32';
-    const coords = link
-      .split('?m=')[0]
-      .split('/')
-      .at(-1)
-      .split('%2C')
-      .map(point => +point)
-      .reverse();
-
-    DG.then(() => {
-      let map = DG.map('map', {
-        center: coords,
-        zoom: 13,
-      });
-      DG.marker(coords).addTo(map);
-    });
   }, []);
+
+  useEffect(() => {
+    if (geolocation) {
+      const coords = geolocation.geolocation.split(',').map(geo => +geo);
+
+      DG.then(() => {
+        let map = DG.map('map', {
+          center: coords,
+          zoom: 13,
+        });
+        DG.marker(coords).addTo(map);
+      });
+    }
+  }, [geolocation]);
 
   return (
     <Root>
@@ -103,10 +99,11 @@ export const Footer = () => {
             )}
           </Socials>
         </div>
-        <MapContainer>
-          <Map id="map" />
-          <MapButton>{t('setRoute')}</MapButton>
-        </MapContainer>
+        <Map id="map">
+          <MapButton href={geolocation?.address_link} target="_blank">
+            {t('setRoute')}
+          </MapButton>
+        </Map>
       </Inner>
       <Copyright>Developed by Remotion</Copyright>
       <img src={blob} />
@@ -155,14 +152,8 @@ const Inner = styled(Container)`
 `;
 
 const Map = styled.div`
-  height: 100%;
-`;
-
-const MapContainer = styled.div`
-  position: relative;
   height: 210px;
   border-radius: 10px;
-  overflow: hidden;
 `;
 
 const Links = styled.div`
@@ -254,7 +245,7 @@ const Copyright = styled.div`
 const MapButton = styled.a`
   position: absolute;
   color: #004098;
-  z-index: 1;
+  z-index: 1001;
   bottom: 0;
   right: 0;
   padding: 20px 30px;

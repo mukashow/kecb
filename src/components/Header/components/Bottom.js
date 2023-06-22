@@ -4,42 +4,49 @@ import styled, { css } from 'styled-components';
 import { Container } from '../../Container';
 import { Link as NavLink } from 'react-router-dom';
 import { AvailableLang, Language } from '../index';
+import { useTranslation } from 'react-i18next';
 
 export const Bottom = React.forwardRef(({ setLangDropdownOpen, langDropdownOpen }, langRef) => {
+  const { t, i18n } = useTranslation();
+
+  const onChangeLang = () => {
+    const lang = i18n.language.match(/ru-RU|ru/) ? 'kr' : 'ru';
+    i18n.changeLanguage(lang);
+    setLangDropdownOpen(false);
+  };
+
   return (
     <Root>
       <BottomInner>
         <Navigation>
           <NavDropdownBtn>
-            О центре <Icon id="arrowDown" width={16} height={16} />
+            {t('aboutCenter')} <Icon id="arrowDown" width={16} height={16} />
             <NavDropdown>
-              <NavDropdownLink to="/about/speech">Приветственное слово директора</NavDropdownLink>
-              <NavDropdownLink to="/about/history">
-                История и основная информация центра
-              </NavDropdownLink>
-              <NavDropdownLink to="/about/activity">Деятельность центра</NavDropdownLink>
+              <NavDropdownLink to="/about/speech">{t('directorSpeech')}</NavDropdownLink>
+              <NavDropdownLink to="/about/history">{t('centerInfo')}</NavDropdownLink>
+              <NavDropdownLink to="/about/activity">{t('centerActivity')}</NavDropdownLink>
             </NavDropdown>
           </NavDropdownBtn>
-          <NavDropdownBtnLink to="/news">Объявления</NavDropdownBtnLink>
+          <NavDropdownBtnLink to="/news">{t('announcement')}</NavDropdownBtnLink>
           <NavDropdownBtn>
-            Курсы центра <Icon id="arrowDown" width={16} height={16} />
+            {t('centerCourses')} <Icon id="arrowDown" width={16} height={16} />
             <NavDropdown>
-              <NavDropdownLink to="/courses/course">Информация о курсах центра</NavDropdownLink>
-              <NavDropdownLink to="/courses/lesson">Информация о занятиях</NavDropdownLink>
-              <NavDropdownLink to="/courses/material">Материалы для уроков</NavDropdownLink>
+              <NavDropdownLink to="/courses/course">{t('courseInfo')}</NavDropdownLink>
+              <NavDropdownLink to="/courses/lesson">{t('lessonInfo')}</NavDropdownLink>
+              <NavDropdownLink to="/courses/material">{t('materialForLesson')}</NavDropdownLink>
             </NavDropdown>
           </NavDropdownBtn>
           <NavDropdownBtn>
-            Обучения в Корее <Icon id="arrowDown" width={16} height={16} />
+            {t('educInKorea')} <Icon id="arrowDown" width={16} height={16} />
             <NavDropdown>
-              <NavDropdownLink to="/education/info">Информация о вузах</NavDropdownLink>
+              <NavDropdownLink to="/education/info">{t('educInfo')}</NavDropdownLink>
               <NavDropdownLink to="/education/announcement">
-                Объявления о наборе студентов
+                {t('studentRecruitment')}
               </NavDropdownLink>
             </NavDropdown>
           </NavDropdownBtn>
           <NavDropdownBtn>
-            Библиотека данных <Icon id="arrowDown" width={16} height={16} />
+            {t('dataLibrary')} <Icon id="arrowDown" width={16} height={16} />
           </NavDropdownBtn>
           <NavDropdownBtnLink>Q&A</NavDropdownBtnLink>
         </Navigation>
@@ -47,9 +54,13 @@ export const Bottom = React.forwardRef(({ setLangDropdownOpen, langDropdownOpen 
           <div ref={langRef} style={{ position: 'relative' }}>
             <Language onClick={() => setLangDropdownOpen(!langDropdownOpen)}>
               <Icon id="globus" />
-              RU
+              {i18n.language.match(/ru-RU|ru/) ? 'RU' : 'KR'}
             </Language>
-            {langDropdownOpen && <AvailableLang>KR</AvailableLang>}
+            {langDropdownOpen && (
+              <AvailableLang onClick={onChangeLang}>
+                {i18n.language.match(/ru-RU|ru/) ? 'KR' : 'RU'}
+              </AvailableLang>
+            )}
           </div>
         )}
       </BottomInner>

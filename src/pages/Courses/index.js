@@ -5,9 +5,11 @@ import { Container, Tabs } from '../../components';
 import { Text } from '../../ui';
 import blob from '../../images/blobFilled.svg';
 import { Course, Material } from './components';
+import { useTranslation } from 'react-i18next';
 
 export const Courses = () => {
   const { pathname } = useLocation();
+  const { t } = useTranslation();
 
   return (
     <>
@@ -19,7 +21,7 @@ export const Courses = () => {
       >
         <Container>
           <Text fz="clamp(32px, 4vw, 50px)" color="white" as="h1" fw={700}>
-            Курсы центра
+            {t('centerCourses')}
           </Text>
         </Container>
       </Banner>
@@ -37,9 +39,9 @@ export const Courses = () => {
         />
         <Tabs
           tabs={[
-            { title: 'Информация о курсах центра', path: '/courses/course' },
-            { title: 'Информация о занятиях', path: '/courses/lesson' },
-            { title: 'Материалы для уроков', path: '/courses/material' },
+            { title: t('courseInfo'), path: '/courses/course' },
+            { title: t('lessonInfo'), path: '/courses/lesson' },
+            { title: t('materialForLesson'), path: '/courses/material' },
           ]}
         />
         <Container style={{ paddingTop: 'clamp(40px, 5vw, 60px)' }}>

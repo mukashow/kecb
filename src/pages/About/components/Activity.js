@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useLocation } from 'react-router-dom';
 import { SectionTitle, Tabs } from '../../../components';
 import { api } from '../../../api';
+import { useTranslation } from 'react-i18next';
 
 export const Activity = () => {
   const [data, setData] = useState([]);
@@ -11,6 +12,7 @@ export const Activity = () => {
     pathname === '/about/activity/support'
       ? data.find(({ category }) => category === '2')
       : data.find(({ category }) => category === '1');
+  const { t } = useTranslation();
 
   useEffect(() => {
     api('activity/')
@@ -27,9 +29,9 @@ export const Activity = () => {
         <Tabs
           leftAlign={window.innerWidth > 1025}
           tabs={[
-            { title: 'Распространение кор.языка', path: '/about/activity/distribution' },
+            { title: t('distributionKoreanLanguage'), path: '/about/activity/distribution' },
             {
-              title: 'Деятельность по поддержке иностранных студентов',
+              title: t('supportStudents'),
               path: '/about/activity/support',
             },
           ]}

@@ -10,7 +10,7 @@ export const NewsDetail = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    api(`announcement/${id}`)
+    api(`announcement/${id}/`)
       .then(({ data }) => setData(data))
       .catch(console.log);
   }, []);

@@ -5,9 +5,11 @@ import { Container, Tabs } from '../../components';
 import { Text } from '../../ui';
 import blob from '../../images/blobFilled.svg';
 import { Activity, History, Speech } from './components';
+import { useTranslation } from 'react-i18next';
 
 export const About = () => {
   const { pathname } = useLocation();
+  const { t } = useTranslation();
 
   return (
     <>
@@ -19,7 +21,7 @@ export const About = () => {
       >
         <Container>
           <Text fz="clamp(32px, 4vw, 50px)" color="white" as="h1" fw={700}>
-            О центре
+            {t('aboutCenter')}
           </Text>
         </Container>
       </Banner>
@@ -27,10 +29,10 @@ export const About = () => {
         <Blob src={blob} />
         <Tabs
           tabs={[
-            { title: 'Приветственное слово директора', path: '/about/speech' },
-            { title: 'История и основная информация центра', path: '/about/history' },
+            { title: t('directorSpeech'), path: '/about/speech' },
+            { title: t('centerInfo'), path: '/about/history' },
             {
-              title: 'Деятельность центра',
+              title: t('centerActivity'),
               path: '/about/activity/distribution',
               currentPath: '/about/activity',
             },

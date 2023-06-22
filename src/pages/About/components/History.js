@@ -1,12 +1,14 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Card, Container, SectionTitle } from '../../../components';
+import { Card, SectionTitle } from '../../../components';
 import styled from 'styled-components';
 import { api } from '../../../api';
 import bubble from '../../../images/circleBubble.png';
+import { useTranslation } from 'react-i18next';
 
 export const History = () => {
   const [data, setData] = useState([]);
   const [cardHeight, setCardHeight] = useState({ first: 0, last: 0 });
+  const { t } = useTranslation();
 
   const stickStyle = useMemo(() => {
     return {
@@ -34,7 +36,7 @@ export const History = () => {
   return (
     <Root>
       <SectionTitle fz="clamp(20px, 2.5vw, 32px)" mb="clamp(20px, 3vw, 40px)">
-        История и основная информация
+        {t('centerInfo')}
       </SectionTitle>
       <div style={{ position: 'relative' }}>
         <Stick style={stickStyle} />

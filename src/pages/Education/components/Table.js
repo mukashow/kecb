@@ -2,32 +2,34 @@ import React, { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { SectionTitle } from '../../../components';
 import { api } from '../../../api';
+import { useTranslation } from 'react-i18next';
 
 export const Table = () => {
   const [data, setData] = useState([]);
+  const { t } = useTranslation();
 
   useEffect(() => {
     api('student_recruitment_announcements/')
       .then(({ data }) => setData(data))
       .catch(console.log);
   }, []);
-  console.log(data);
+
   return (
     <Root>
       <SectionTitle fz="clamp(20px, 3vw, 32px)" mb="clamp(20px, 3vw, 38px)">
-        Объявления о наборе студентов
+        {t('studentRecruitment')}
       </SectionTitle>
       <Grid>
         <Row $th>
-          <div>Номер</div>
-          <div>Название</div>
-          <div>Дата</div>
+          <div>{t('number')}</div>
+          <div>{t('name')}</div>
+          <div>{t('date')}</div>
         </Row>
         {data.map(({ title, id, data }, index) => (
           <Row key={id}>
             <div>{index + 1}</div>
             <div>{title}</div>
-            <div>Дата</div>
+            <div>{new Date(data).toLocaleDateString()}</div>
           </Row>
         ))}
       </Grid>

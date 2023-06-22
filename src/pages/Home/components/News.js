@@ -11,7 +11,7 @@ export const News = () => {
     <Root>
       <SectionTitle>{t('news')}</SectionTitle>
       <Button as="a" style={{ marginLeft: window.innerWidth >= 700 ? 'auto' : 0 }}>
-        Все объявления
+        {t('allNews')}
       </Button>
       <Grid>
         <Card

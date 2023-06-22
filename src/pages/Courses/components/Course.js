@@ -3,10 +3,12 @@ import styled from 'styled-components';
 import { useLocation } from 'react-router-dom';
 import { SectionTitle } from '../../../components';
 import { api } from '../../../api';
+import { useTranslation } from 'react-i18next';
 
 export const Course = () => {
   const [data, setData] = useState(null);
   const { pathname } = useLocation();
+  const { t } = useTranslation();
 
   useEffect(() => {
     api(pathname === '/courses/course' ? 'informationaboutcenter/' : 'informationclasse/')
@@ -17,7 +19,7 @@ export const Course = () => {
   return (
     <Root>
       <SectionTitle fz="clamp(20px, 3vw, 32px)" mb="clamp(20px, 3vw, 38px)">
-        {pathname === '/courses/course' ? 'Информация о курсах центра' : '  Информация о занятиях'}
+        {pathname === '/courses/course' ? t('courseInfo') : t('lessonInfo')}
       </SectionTitle>
       <Content>
         <div dangerouslySetInnerHTML={{ __html: data?.content }} />
