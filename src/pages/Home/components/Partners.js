@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Container } from '../../../components';
 import img from '../../../images/image.svg';
-import img1 from '../../../images/blobFilled.svg';
 import { api } from '../../../api';
 
 export const Partners = () => {
@@ -19,11 +18,6 @@ export const Partners = () => {
       <Slider>
         <Slide src={img} />
         <Slide src={img} />
-        <Slide src={img1} />
-        <Slide src={img1} />
-        <Slide src={img1} />
-        <Slide src={img1} />
-        <Slide src="https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png" />
       </Slider>
     </Root>
   );
