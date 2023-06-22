@@ -8,9 +8,11 @@ import {
   DataLibrary,
   Education,
   EducationDetail,
+  GalleryDetail,
   Home,
   News,
   NewsDetail,
+  QA,
 } from './pages';
 import { Footer, Header } from './components';
 import { fetchContacts } from './store/action';
@@ -43,6 +45,8 @@ export const App = () => {
           <Route path="/education_info/:id" element={<EducationDetail />} />
           <Route path="/library/gallery" element={<DataLibrary />} />
           <Route path="/library/aids" element={<DataLibrary />} />
+          <Route path="/gallery/:id" element={<GalleryDetail />} />
+          <Route path="/qa" element={<QA />} />
         </Routes>
       </main>
       <Footer />

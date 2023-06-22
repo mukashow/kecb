@@ -6,3 +6,5 @@ export { Courses } from './Courses';
 export { Education } from './Education';
 export { EducationDetail } from './EducationDetail';
 export { DataLibrary } from './DataLibrary';
+export { GalleryDetail } from './GalleryDetail';
+export { QA } from './QA';

@@ -52,7 +52,7 @@ export const Bottom = React.forwardRef(({ setLangDropdownOpen, langDropdownOpen 
               <NavDropdownLink to="/library/aids">{t('trainingAids')}</NavDropdownLink>
             </NavDropdown>
           </NavDropdownBtn>
-          <NavDropdownBtnLink>Q&A</NavDropdownBtnLink>
+          <NavDropdownBtnLink to="/qa">Q&A</NavDropdownBtnLink>
         </Navigation>
         {window.innerWidth > 1024 && (
           <div ref={langRef} style={{ position: 'relative' }}>

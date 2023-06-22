@@ -1,15 +1,29 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
-import { AppPagination, Card, Container } from '../components';
-import { Text } from '../ui';
+import { Container } from '../components';
+import { Icon, Text } from '../ui';
 import { Link } from 'react-router-dom';
 import { api } from '../api';
 import blob from '../images/blobFilled.svg';
-import { useTranslation } from 'react-i18next';
+import { useOutsideClick } from '../hooks';
 
-export const News = () => {
+const QaItem = () => {
+  const [open, setOpen] = useState(false);
+  const ref = useRef();
+  useOutsideClick(ref, () => setOpen(false));
+
+  return (
+    <Qa ref={ref}>
+      <Item onClick={() => setOpen(!open)}>
+        Сколько раз в год принимаете на курсы корейского языка? <Icon id="arrowDown" />
+      </Item>
+      {open && <Item>Сколько раз в год принимаете на курсы корейского языка?</Item>}
+    </Qa>
+  );
+};
+
+export const QA = () => {
   const [data, setData] = useState(null);
-  const { t } = useTranslation();
 
   useEffect(() => {
     api('announcement/')
@@ -27,7 +41,7 @@ export const News = () => {
       >
         <Container>
           <Text fz="clamp(32px, 4vw, 50px)" color="white" as="h1" fw={700}>
-            {t('announcement')}
+            Q&A
           </Text>
         </Container>
       </Banner>
@@ -46,14 +60,16 @@ export const News = () => {
             <FilterBtn>Общее</FilterBtn>
             <FilterBtn>Общее</FilterBtn>
           </Filter>
-          <Grid>
-            {data?.results.map(item => (
-              <Link key={item.id} to={`/news/${item.id}/`} style={{ textDecoration: 'none' }}>
-                <Card {...item} arrow />
-              </Link>
-            ))}
-          </Grid>
-          <AppPagination />
+          <GridWrap>
+            <Grid>
+              <QaItem />
+              <QaItem />
+            </Grid>
+            <Grid>
+              <QaItem />
+              <QaItem />
+            </Grid>
+          </GridWrap>
         </Root>
       </div>
     </>
@@ -64,15 +80,21 @@ const Root = styled(Container)`
   padding: clamp(70px, 8.5vw, 100px) 20px;
 `;
 
-const Grid = styled.div`
+const GridWrap = styled.div`
   display: grid;
+  padding-top: 40px;
   grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
   gap: clamp(20px, 2.5vw, 30px);
-  padding: clamp(40px, 4.5vw, 50px) 0 30px;
 
   @media (max-width: 700px) {
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   }
+`;
+
+const Grid = styled.div`
+  display: grid;
+  gap: clamp(20px, 2.5vw, 30px);
+  align-content: start;
 `;
 
 const Banner = styled.div`
@@ -125,4 +147,38 @@ const Filter = styled.div`
   display: flex;
   margin: -7px -5px;
   flex-wrap: wrap;
+`;
+
+const Item = styled.div`
+  padding: clamp(20px, 2.2vw, 24px) clamp(15px, 2.2vw, 30px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &:first-child {
+    cursor: pointer;
+  }
+
+  &:last-child:not(:first-child) {
+    font-size: 14px;
+    color: rgba(3, 5, 34, 0.65);
+    border-top: 1px solid #ccd9eb;
+  }
+`;
+
+const Qa = styled.div`
+  border-radius: 20px;
+  background: #fff;
+  color: #222;
+  font-size: clamp(14px, 1.5vw, 16px);
+  box-shadow: 0 -2px 24px 0 rgba(0, 64, 152, 0.1);
+
+  svg {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transform: scale(1.3);
+  }
 `;
