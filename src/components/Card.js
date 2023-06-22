@@ -25,17 +25,12 @@ export const Card = ({
       </div>
       <Content>
         {title && (
-          <Text
-            fz="clamp(16px, 2vw, 18px)"
-            mb={direction === 'row' ? 4 : 12}
-            color={titleColor || '#0C101A'}
-            fw={700}
-          >
+          <Text fz="clamp(16px, 2vw, 18px)" mb={4} color={titleColor || '#0C101A'} fw={700}>
             {title}
           </Text>
         )}
         {subtitle && (
-          <Text fz="clamp(14px, 2vw, 16px)" lh="24px" mb={19}>
+          <Text fz="clamp(14px, 2vw, 16px)" lh="24px" mb={10}>
             {subtitle}
           </Text>
         )}
@@ -52,15 +47,15 @@ export const Card = ({
           fw={direction === 'column' || history ? 300 : 400}
           {...(history && { color: '#4D5257' })}
         >
-          {description}
+          <span dangerouslySetInnerHTML={{ __html: description }} />
         </Text>
         {type && (
-          <Text fz={12} lh="24px" mt={10}>
+          <Text fz={12} lh="24px" mt={10} color="#4D5257">
             {type}
           </Text>
         )}
         {data && (
-          <Text fz={12} lh="24px">
+          <Text fz={12} lh="24px" color="#4D5257">
             {new Date(data).toLocaleDateString()}
           </Text>
         )}
@@ -112,6 +107,14 @@ const Root = styled.div`
     img {
       height: 150px;
     }
+  }
+
+  p {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
   }
 `;
 

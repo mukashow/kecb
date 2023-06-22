@@ -10,7 +10,7 @@ export const Pagination = css`
     background: #4361ee;
     height: 4px;
     border-radius: 2px;
-    margin: 0 clamp(12px, 3vw, 20px) !important;
+    margin: 0 clamp(12px, 1.5vw, 20px) !important;
 
     &.swiper-pagination-bullet-active {
       opacity: 1 !important;

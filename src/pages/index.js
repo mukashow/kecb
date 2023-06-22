@@ -5,3 +5,4 @@ export { NewsDetail } from './NewsDetail';
 export { Courses } from './Courses';
 export { Education } from './Education';
 export { EducationDetail } from './EducationDetail';
+export { DataLibrary } from './DataLibrary';

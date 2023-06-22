@@ -10,7 +10,7 @@ export const EducationDetail = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    api(`education_korea/${id}`)
+    api(`education_korea/${id}/`)
       .then(({ data }) => setData(data))
       .catch(console.log);
   }, []);

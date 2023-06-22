@@ -1,10 +1,19 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Container } from '../../../components';
 import img from '../../../images/image.svg';
 import img1 from '../../../images/blobFilled.svg';
+import { api } from '../../../api';
 
 export const Partners = () => {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    api('partners/')
+      .then(({ data }) => setData(data))
+      .catch(console.log);
+  }, []);
+
   return (
     <Root>
       <Slider>

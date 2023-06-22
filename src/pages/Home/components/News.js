@@ -1,11 +1,20 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { Container, SectionTitle, Card } from '../../../components';
 import { Button } from '../../../ui';
+import { api } from '../../../api';
+import { Link } from 'react-router-dom';
 
 export const News = () => {
+  const [data, setData] = useState(null);
   const { t } = useTranslation();
+
+  useEffect(() => {
+    api('announcement/')
+      .then(({ data }) => setData(data))
+      .catch(console.log);
+  }, []);
 
   return (
     <Root>
@@ -14,20 +23,11 @@ export const News = () => {
         {t('allNews')}
       </Button>
       <Grid>
-        <Card
-          title="Title"
-          description="Lorem ipsum dolor sit amet adipcing amet adipcingamet adipci aqua lorem ipsum."
-          type="Рубрика"
-          date="20 января 2023"
-          arrow
-        />
-        <Card
-          title="Title"
-          description="Lorem ipsum dolor sit amet adipcing amet adipcingamet adipci aqua lorem ipsum."
-          type="Рубрика"
-          date="20 января 2023"
-          arrow
-        />
+        {data?.results.map(item => (
+          <Link key={item.id} to={`/news/${item.id}`} style={{ textDecoration: 'none' }}>
+            <Card {...item} />
+          </Link>
+        ))}
       </Grid>
     </Root>
   );

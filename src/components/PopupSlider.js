@@ -45,16 +45,9 @@ export const PopupSlider = ({ images, isOpen, close }) => {
         navigation={{ nextEl: '.slider-next', prevEl: '.slider-prev' }}
         spaceBetween={15}
       >
-        <SwiperSlide
-          style={{
-            backgroundImage: `url(https://images.unsplash.com/photo-1508919801845-fc2ae1bc2a28?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1nfGVufDB8fDB8fHww&w=1000&q=80)`,
-          }}
-        ></SwiperSlide>
-        <SwiperSlide
-          style={{
-            backgroundImage: `url(https://www.imgworlds.com/wp-content/themes/IMG2019/img/phase3/slides/cartoon-girls.png)`,
-          }}
-        ></SwiperSlide>
+        {images.map(image => (
+          <SwiperSlide style={{ backgroundImage: `url(${image})` }} />
+        ))}
       </Slider>
       <SliderPagination className="slider-pagination swiper-pagination" />
       <NavigationArrow className="slider-prev">

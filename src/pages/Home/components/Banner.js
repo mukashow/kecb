@@ -1,12 +1,20 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Container } from '../../../components';
 import { Text } from '../../../ui';
-import img from '../../../images/logo.png';
+import { api } from '../../../api';
 
 export const Banner = () => {
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    api('main_banner/')
+      .then(({ data }) => setData(data))
+      .catch(console.log);
+  }, []);
+
   return (
-    <Root style={{ backgroundImage: `url(${img})` }}>
+    <Root style={{ backgroundImage: `url(${data?.main_image})` }}>
       <Container>
         <Text
           mb={24}

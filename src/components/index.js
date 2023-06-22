@@ -3,7 +3,7 @@ export { Container } from './Container';
 export { Footer } from './Footer';
 export { SectionTitle } from './SectionTitle';
 export { Card } from './Card';
-export { Pagination } from './Swiper';
+export { Pagination, Navigation } from './Swiper';
 export { PopupSlider } from './PopupSlider';
 export { Tabs } from './Tabs';
 export { Pagination as AppPagination } from './Pagination';

@@ -7,7 +7,7 @@ import { api } from '../api';
 import blob from '../images/blobFilled.svg';
 
 export const News = () => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState(null);
 
   useEffect(() => {
     api('announcement/')
@@ -45,7 +45,7 @@ export const News = () => {
             <FilterBtn>Общее</FilterBtn>
           </Filter>
           <Grid>
-            {data.map(item => (
+            {data?.results.map(item => (
               <Link key={item.id} to={`/news/${item.id}/`} style={{ textDecoration: 'none' }}>
                 <Card {...item} arrow />
               </Link>

@@ -25,5 +25,7 @@
   "address": "Адрес",
   "creationDate": "Дата создания",
   "date": "Дата",
-  "name": "Название"
+  "name": "Название",
+  "trainingAids": "Учебные пособия",
+  "photoGallery": "Фотогалерея"
 }

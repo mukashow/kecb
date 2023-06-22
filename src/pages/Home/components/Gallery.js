@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -13,10 +13,19 @@ import {
   PopupSlider,
 } from '../../../components';
 import { Button } from '../../../ui';
+import { api } from '../../../api';
 
 export const Gallery = () => {
   const [popupOpen, setPopupOpen] = useState(false);
+  const [popupImages, setPopupImages] = useState([]);
+  const [data, setData] = useState([]);
   const { t } = useTranslation();
+
+  useEffect(() => {
+    api('photo_gallery/')
+      .then(({ data }) => setData(data))
+      .catch(console.log);
+  }, []);
 
   return (
     <Root>
@@ -31,24 +40,26 @@ export const Gallery = () => {
         pagination
         breakpoints={{ 550: { slidesPerView: 2 }, 900: { slidesPerView: 3, spaceBetween: 30 } }}
       >
-        <SwiperSlide onClick={() => setPopupOpen(true)}>
-          <Card
-            title="Title"
-            description="Lorem ipsum dolor sit amet adipcing amet adipcingamet adipci aqua lorem ipsum."
-            subtitle="Рубрика"
-            direction="column"
-          />
-        </SwiperSlide>
-        <SwiperSlide onClick={() => setPopupOpen(true)}>
-          <Card
-            title="Title"
-            description="Lorem ipsum dolor sit amet adipcing amet adipcingamet adipci aqua lorem ipsum."
-            subtitle="Рубрика"
-            direction="column"
-          />
-        </SwiperSlide>
+        {data.map(item => (
+          <SwiperSlide
+            key={item.id}
+            onClick={() => {
+              if (!!item.photos.length) {
+                setPopupOpen(true);
+                setPopupImages(item.photos.map(({ image }) => image));
+              }
+            }}
+          >
+            <Card
+              {...item}
+              subtitle={item.category}
+              direction="column"
+              image={item.photos[0]?.image}
+            />
+          </SwiperSlide>
+        ))}
       </Slider>
-      <PopupSlider isOpen={popupOpen} close={() => setPopupOpen(false)} />
+      <PopupSlider images={popupImages} isOpen={popupOpen} close={() => setPopupOpen(false)} />
     </Root>
   );
 };

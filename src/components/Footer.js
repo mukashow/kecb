@@ -144,7 +144,11 @@ const Inner = styled(Container)`
   z-index: 2;
   display: grid;
   grid-template-columns: auto 1fr;
-  gap: clamp(50px, 15vw, 227px);
+  gap: clamp(50px, 15vw, 200px);
+
+  & > div:first-child {
+    max-width: 410px;
+  }
 
   @media (max-width: 1024px) {
     grid-template-columns: 1fr;
@@ -248,10 +252,16 @@ const MapButton = styled.a`
   z-index: 1001;
   bottom: 0;
   right: 0;
-  padding: 20px 30px;
+  padding: 0 30px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: #ffffff;
   border: 1px solid #004098;
   border-radius: 30px 0 0 0;
   border-right: none;
   border-bottom: none;
+  text-decoration: none;
+  font-size: 16px;
 `;
