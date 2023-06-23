@@ -21,15 +21,21 @@ export const Aids = () => {
         {t('trainingAids')}
       </SectionTitle>
       <Grid>
-        {data.map(item => (
-          <div
-            key={item.id}
-            style={{ cursor: 'pointer' }}
-            onClick={() => new JsFileDownloader({ url: item.file }).catch(console.log)}
-          >
-            <DocCard {...item} />
-          </div>
-        ))}
+        {data.map(item =>
+          item.type === 'file' ? (
+            <div
+              key={item.id}
+              style={{ cursor: 'pointer' }}
+              onClick={() => new JsFileDownloader({ url: item.file }).catch(console.log)}
+            >
+              <DocCard {...item} />
+            </div>
+          ) : (
+            <a key={item.id} style={{ textDecoration: 'none' }} href={item.link} target="_blank">
+              <DocCard {...item} iconId="link" />
+            </a>
+          )
+        )}
       </Grid>
     </Root>
   );

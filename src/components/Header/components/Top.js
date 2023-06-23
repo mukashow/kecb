@@ -4,9 +4,14 @@ import { useSelector } from 'react-redux';
 import logo from '../../../images/logo.svg';
 import { Icon } from '../../../ui';
 import { Logo, Top as Root } from '../index';
+import { api } from '../../../api';
 
 export const Top = () => {
   const contacts = useSelector(state => state.main.contacts);
+
+  const onSearch = e => {
+    // api(`announcement/?search=${e.target.value}`).catch(console.log);
+  };
 
   return (
     <Root>
@@ -17,7 +22,7 @@ export const Top = () => {
       )}
       <Search>
         <SearchIcon id="search" />
-        <input type="text" />
+        <input type="text" onChange={onSearch} />
       </Search>
       <Links>
         {contacts?.phone1 && (
