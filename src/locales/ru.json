@@ -28,5 +28,10 @@
   "name": "Название",
   "trainingAids": "Учебные пособия",
   "photoGallery": "Фотогалерея",
-  "empty": "Пусто"
+  "empty": "Пусто",
+  "total": "Общее",
+  "koreanCourses": "Курсы корейского языка",
+  "events": "Мероприятия",
+  "other": "Разное",
+  "vacancies": "Вакансии"
 }

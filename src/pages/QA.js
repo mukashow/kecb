@@ -44,6 +44,10 @@ export const QA = () => {
       .catch(console.log);
   }, [i18n.language]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [i18n.language]);
+
   return (
     <>
       <Helmet>
@@ -180,6 +184,7 @@ const Item = styled.div`
     font-size: 14px;
     color: rgba(3, 5, 34, 0.65);
     border-top: 1px solid #ccd9eb;
+    line-height: 150%;
   }
 `;
 

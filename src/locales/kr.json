@@ -28,5 +28,10 @@
   "name": "제목",
   "trainingAids": "교육 매뉴얼",
   "photoGallery": "사진 갤러리",
-  "empty": "빈"
+  "empty": "빈",
+  "total": "일반",
+  "koreanCourses": "한국어 코스",
+  "events": "활동",
+  "other": "기타",
+  "vacancies": "채용 정보"
 }

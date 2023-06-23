@@ -5,20 +5,12 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { useTranslation } from 'react-i18next';
-import {
-  Container,
-  SectionTitle,
-  Card,
-  Pagination as PaginationStyle,
-  PopupSlider,
-} from '../../../components';
+import { Container, SectionTitle, Card, Pagination as PaginationStyle } from '../../../components';
 import { Button } from '../../../ui';
 import { api } from '../../../api';
 import { useNavigate } from 'react-router-dom';
 
 export const Gallery = () => {
-  const [popupOpen, setPopupOpen] = useState(false);
-  const [popupImages, setPopupImages] = useState([]);
   const [data, setData] = useState([]);
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
@@ -46,24 +38,16 @@ export const Gallery = () => {
         breakpoints={{ 550: { slidesPerView: 2 }, 900: { slidesPerView: 3, spaceBetween: 30 } }}
       >
         {data.slice(0, 6).map(item => (
-          <SwiperSlide key={item.id}>
+          <SwiperSlide key={item.id} onClick={() => navigate(`/gallery/${item.id}`)}>
             <Card
               {...item}
               subtitle={item.category}
               direction="column"
               image={item.photos[0]?.image}
-              onImageClick={() => {
-                if (!!item.photos.length) {
-                  setPopupOpen(true);
-                  setPopupImages(item.photos.map(({ image }) => image));
-                }
-              }}
-              onContentClick={() => navigate(`/gallery/${item.id}`)}
             />
           </SwiperSlide>
         ))}
       </Slider>
-      <PopupSlider images={popupImages} isOpen={popupOpen} close={() => setPopupOpen(false)} />
     </Root>
   );
 };
@@ -88,8 +72,8 @@ const Slider = styled(Swiper)`
   padding: 20px 20px clamp(30px, 4vw, 60px);
   margin: 0 -20px;
 
-  img {
-    cursor: zoom-in;
+  .swiper-slide {
+    cursor: pointer;
   }
 
   @media (max-width: 700px) {

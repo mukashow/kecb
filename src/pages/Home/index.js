@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { Banner, Gallery, News, Partners } from './components';
 import blob from '../../images/blobFilled.svg';
 import { Helmet } from 'react-helmet';
 
 export const Home = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <>
       <Helmet>

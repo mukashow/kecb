@@ -12,13 +12,21 @@ import { useTranslation } from 'react-i18next';
 export const Top = () => {
   const contacts = useSelector(state => state.main.contacts);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [data, setData] = useState([]);
   const { t } = useTranslation();
   const ref = useRef();
+  const inputRef = useRef();
   useOutsideClick(ref, () => setDropdownOpen(false));
 
   const onSearch = e => {
+    if (e.target.value.length === 0) {
+      setDropdownOpen(false);
+      return;
+    }
     setDropdownOpen(true);
-    // api(`announcement/?search=${e.target.value}`).catch(console.log);
+    api(`announcement/?search=${e.target.value}`)
+      .then(({ data }) => setData(data.results))
+      .catch(console.log);
   };
 
   return (
@@ -30,15 +38,24 @@ export const Top = () => {
       )}
       <Search ref={ref}>
         <SearchIcon id="search" />
-        <input type="text" onChange={onSearch} />
-        {/*{dropdownOpen && (*/}
-        {/*  <Dropdown>*/}
-        {/*    <NavLink to={`/news/`} onClick={() => setDropdownOpen(false)}>*/}
-        {/*      Ttile*/}
-        {/*    </NavLink>*/}
-        {/*    <span>{t('empty')}</span>*/}
-        {/*  </Dropdown>*/}
-        {/*)}*/}
+        <input type="text" onChange={onSearch} ref={inputRef} />
+        {dropdownOpen && (
+          <Dropdown>
+            {data.map(({ id, title }) => (
+              <NavLink
+                key={id}
+                to={`/news/${id}`}
+                onClick={() => {
+                  setDropdownOpen(false);
+                  inputRef.current.value = '';
+                }}
+              >
+                {title}
+              </NavLink>
+            ))}
+            {data.length === 0 && <span>{t('empty')}</span>}
+          </Dropdown>
+        )}
       </Search>
       <Links>
         {contacts?.phone1 && (
@@ -84,6 +101,7 @@ const Dropdown = styled.div`
   background: white;
   border-radius: 15px;
   z-index: 2;
+  overflow: hidden;
 
   a,
   span {
@@ -100,6 +118,11 @@ const Dropdown = styled.div`
     &:last-child {
       padding-bottom: 10px;
     }
+  }
+
+  a:hover {
+    color: white;
+    background: #004098;
   }
 
   span {

@@ -52,6 +52,10 @@ const Content = styled.div`
   grid-template-columns: 1fr 1fr;
   gap: 40px;
 
+  * {
+    line-height: 150%;
+  }
+
   @media (max-width: 640px) {
     grid-template-columns: 1fr;
   }

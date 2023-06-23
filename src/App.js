@@ -7,7 +7,7 @@ import {
   Courses,
   DataLibrary,
   Education,
-  EducationDetail,
+  RecruitmentDetail,
   GalleryDetail,
   Home,
   News,
@@ -45,7 +45,7 @@ export const App = () => {
           <Route path="/courses/material" element={<Courses />} />
           <Route path="/education/info" element={<Education />} />
           <Route path="/education/announcement" element={<Education />} />
-          <Route path="/education_info/:id" element={<EducationDetail />} />
+          <Route path="/recruitment/:id" element={<RecruitmentDetail />} />
           <Route path="/library/gallery" element={<DataLibrary />} />
           <Route path="/library/aids" element={<DataLibrary />} />
           <Route path="/gallery/:id" element={<GalleryDetail />} />

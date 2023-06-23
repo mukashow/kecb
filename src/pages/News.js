@@ -9,6 +9,15 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { Helmet } from 'react-helmet';
 
+const filter = [
+  { title: 'GKS', key: 'GKS' },
+  { title: 'TOPIC', key: 'TOPIC' },
+  { title: 'koreanCourses', key: 'Курсы корейского языка' },
+  { title: 'events', key: 'Мероприятия' },
+  { title: 'other', key: 'Разное' },
+  { title: 'vacancies', key: 'Вакансии' },
+];
+
 export const News = () => {
   const banners = useSelector(state => state.main.banners);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -25,6 +34,7 @@ export const News = () => {
   }, [i18n.language, searchParams]);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     if (!searchParams.has('page') || !searchParams.has('page_size')) {
       setSearchParams({ page: 1, page_size: 10 });
     }
@@ -49,14 +59,22 @@ export const News = () => {
           style={{ bottom: 'auto', left: 'auto', top: 0, right: 0, transform: 'rotate(180deg)' }}
         />
         <Root>
-          {/*<Filter>*/}
-          {/*  <FilterBtn $active>Общее</FilterBtn>*/}
-          {/*  <FilterBtn>Общее</FilterBtn>*/}
-          {/*  <FilterBtn>Общее</FilterBtn>*/}
-          {/*  <FilterBtn>Общее</FilterBtn>*/}
-          {/*  <FilterBtn>Общее</FilterBtn>*/}
-          {/*  <FilterBtn>Общее</FilterBtn>*/}
-          {/*</Filter>*/}
+          <Filter>
+            <FilterBtn
+              onClick={() => setSearchParams({ page: 1, page_size: 10 })}
+              $active={!searchParams.get('type')}
+            >
+              {t('total')}
+            </FilterBtn>
+            {filter.map(({ title, key }) => (
+              <FilterBtn
+                onClick={() => setSearchParams({ page: 1, page_size: 10, type: key })}
+                $active={searchParams.get('type') === key}
+              >
+                {title === key ? title : t(title)}
+              </FilterBtn>
+            ))}
+          </Filter>
           <Grid>
             {data?.results.map(item => (
               <Link key={item.id} to={`/news/${item.id}/`} style={{ textDecoration: 'none' }}>
@@ -64,7 +82,7 @@ export const News = () => {
               </Link>
             ))}
           </Grid>
-          <AppPagination count={data?.count} />
+          {data?.count ? <AppPagination count={data?.count} /> : null}
         </Root>
       </div>
     </>
@@ -95,7 +113,7 @@ const Banner = styled.div`
   align-items: center;
 `;
 
-const FilterBtn = styled(Link)`
+const FilterBtn = styled.div`
   height: clamp(40px, 4.5vw, 50px);
   padding: 0 20px;
   border: 1px solid #004098;
@@ -106,6 +124,7 @@ const FilterBtn = styled(Link)`
   align-items: center;
   text-decoration: none;
   margin: 7px 5px;
+  cursor: pointer;
 
   &:hover {
     color: #004098;

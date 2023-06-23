@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 import { SectionTitle } from '../../../components';
 import { api } from '../../../api';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 export const Table = () => {
   const [data, setData] = useState([]);
@@ -20,13 +21,13 @@ export const Table = () => {
         {t('studentRecruitment')}
       </SectionTitle>
       <Grid>
-        <Row $th>
+        <Row $th as="div">
           <div>{t('number')}</div>
           <div>{t('name')}</div>
           <div>{t('date')}</div>
         </Row>
         {data.map(({ title, id, data }, index) => (
-          <Row key={id}>
+          <Row key={id} to={`/recruitment/${id}`}>
             <div>{index + 1}</div>
             <div>{title}</div>
             <div>{new Date(data).toLocaleDateString()}</div>
@@ -45,7 +46,7 @@ const Root = styled.div`
   }
 `;
 
-const Row = styled.div`
+const Row = styled(Link)`
   display: grid;
   grid-template-columns: clamp(60px, 8vw, 100px) 2fr 1fr;
   filter: drop-shadow(0px 2px 24px rgba(0, 64, 152, 0.1));
@@ -53,6 +54,7 @@ const Row = styled.div`
   border-radius: 10px;
   color: #0c2044;
   font-size: clamp(14px, 1.5vw, 16px);
+  text-decoration: none;
 
   ${({ $th }) =>
     $th &&

@@ -4,7 +4,7 @@ export { News } from './News';
 export { NewsDetail } from './NewsDetail';
 export { Courses } from './Courses';
 export { Education } from './Education';
-export { EducationDetail } from './EducationDetail';
+export { RecruitmentDetail } from './RecruitmentDetail';
 export { DataLibrary } from './DataLibrary';
 export { GalleryDetail } from './GalleryDetail';
 export { QA } from './QA';

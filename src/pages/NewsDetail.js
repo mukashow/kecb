@@ -5,8 +5,9 @@ import {
   SectionTitle,
   Pagination as PaginationStyle,
   Navigation as NavigationStyle,
+  PopupSlider,
 } from '../components';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { api } from '../api';
 import { Icon, Text } from '../ui';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -19,7 +20,9 @@ import { Helmet } from 'react-helmet';
 
 export const NewsDetail = () => {
   const [data, setData] = useState(null);
+  const [popupImages, setPopupImages] = useState([]);
   const [offset, setOffset] = useState(0);
+  const { pathname } = useLocation();
   const { id } = useParams();
   const { i18n, t } = useTranslation();
 
@@ -27,7 +30,11 @@ export const NewsDetail = () => {
     api(`announcement/${id}/`)
       .then(({ data }) => setData(data))
       .catch(console.log);
-  }, [i18n.language]);
+  }, [i18n.language, pathname]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <>
@@ -40,10 +47,10 @@ export const NewsDetail = () => {
           <Text>{data?.type}</Text>
           {data && <Text>{new Date(data.data).toLocaleDateString()}</Text>}
         </Head>
-        <div dangerouslySetInnerHTML={{ __html: data?.description }} />
+        <Content dangerouslySetInnerHTML={{ __html: data?.description }} />
         <Files>
           {data?.files.map(file => (
-            <File key={file.id} onClick={() => new JsFileDownloader({ url: file.file_url })}>
+            <File key={file.id} onClick={() => new JsFileDownloader({ url: file.file })}>
               <Icon id="cloud" />
               {file.title}
             </File>
@@ -67,7 +74,11 @@ export const NewsDetail = () => {
             $offset={offset}
           >
             {data?.images.map(({ id, image }) => (
-              <SwiperSlide key={id} style={{ backgroundImage: `url(${image})` }}>
+              <SwiperSlide
+                key={id}
+                style={{ backgroundImage: `url(${image})` }}
+                onClick={() => setPopupImages(data.images.map(({ image }) => image))}
+              >
                 <img src={img} style={{ visibility: 'hidden' }} />
               </SwiperSlide>
             ))}
@@ -91,6 +102,11 @@ export const NewsDetail = () => {
           top: '15%',
         }}
       />
+      <PopupSlider
+        images={popupImages}
+        isOpen={!!popupImages.length}
+        close={() => setPopupImages([])}
+      />
     </>
   );
 };
@@ -112,6 +128,13 @@ const Blob = styled.img`
   z-index: -1;
   left: 0;
   bottom: 1%;
+`;
+
+const Content = styled.div`
+  * {
+    color: #4d5257;
+    line-height: 150%;
+  }
 `;
 
 const Head = styled.div`
@@ -139,6 +162,7 @@ const Slider = styled(Swiper)`
     background-repeat: no-repeat;
     width: auto;
     border-radius: 20px;
+    cursor: zoom-in;
 
     img {
       display: block;

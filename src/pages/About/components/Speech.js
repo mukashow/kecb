@@ -21,7 +21,7 @@ export const Speech = () => {
         <SectionTitle fz="clamp(20px, 3vw, 32px)" mb="clamp(20px, 3vw, 38px)">
           {data?.title}
         </SectionTitle>
-        <div dangerouslySetInnerHTML={{ __html: data?.description }} />
+        <Content dangerouslySetInnerHTML={{ __html: data?.description }} />
       </div>
       <Picture>
         <img src={data?.image} />
@@ -31,6 +31,12 @@ export const Speech = () => {
     </Root>
   );
 };
+
+const Content = styled.div`
+  * {
+    line-height: 150%;
+  }
+`;
 
 const Root = styled.div`
   display: grid;

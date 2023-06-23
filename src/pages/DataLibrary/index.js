@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import styled from 'styled-components';
 import { useLocation } from 'react-router-dom';
 import { Container, Tabs } from '../../components';
@@ -16,6 +16,10 @@ export const DataLibrary = () => {
   }, [banners]);
   const { pathname } = useLocation();
   const { t } = useTranslation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <>
