@@ -46,20 +46,19 @@ export const Gallery = () => {
         breakpoints={{ 550: { slidesPerView: 2 }, 900: { slidesPerView: 3, spaceBetween: 30 } }}
       >
         {data.slice(0, 6).map(item => (
-          <SwiperSlide
-            key={item.id}
-            onClick={() => {
-              if (!!item.photos.length) {
-                setPopupOpen(true);
-                setPopupImages(item.photos.map(({ image }) => image));
-              }
-            }}
-          >
+          <SwiperSlide key={item.id}>
             <Card
               {...item}
               subtitle={item.category}
               direction="column"
               image={item.photos[0]?.image}
+              onImageClick={() => {
+                if (!!item.photos.length) {
+                  setPopupOpen(true);
+                  setPopupImages(item.photos.map(({ image }) => image));
+                }
+              }}
+              onContentClick={() => navigate(`/gallery/${item.id}`)}
             />
           </SwiperSlide>
         ))}
@@ -89,7 +88,7 @@ const Slider = styled(Swiper)`
   padding: 20px 20px clamp(30px, 4vw, 60px);
   margin: 0 -20px;
 
-  .swiper-slide {
+  img {
     cursor: zoom-in;
   }
 

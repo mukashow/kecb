@@ -18,14 +18,16 @@ export const Card = ({
   arrow,
   className,
   list,
+  onImageClick,
+  onContentClick,
 }) => {
   return (
     <Root $direction={direction} className={className} $limitDescription={limitDescription}>
-      <div>
+      <div onClick={onImageClick}>
         <img src={img} />
         <img src={image} />
       </div>
-      <Content>
+      <Content onClick={onContentClick} {...(onContentClick && { style: { cursor: 'pointer' } })}>
         {title && (
           <Text fz="clamp(16px, 2vw, 18px)" mb={4} color={titleColor || '#0C101A'} fw={700}>
             {title}

@@ -25,7 +25,7 @@ export const GalleryDetail = () => {
         <title>{t('photoGallery')}</title>
       </Helmet>
       <Root>
-        <SectionTitle mb={14}>{data?.name}</SectionTitle>
+        <SectionTitle mb={14}>{data?.title}</SectionTitle>
         <Head>
           <Text>{data?.category}</Text>
           {data && <Text>{new Date(data.data).toLocaleDateString()}</Text>}
