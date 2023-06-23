@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 export const History = () => {
   const [data, setData] = useState([]);
   const [cardHeight, setCardHeight] = useState({ first: 0, last: 0 });
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const stickStyle = useMemo(() => {
     return {
@@ -31,7 +31,7 @@ export const History = () => {
     api('history/')
       .then(({ data }) => setData(data))
       .catch(console.log);
-  }, []);
+  }, [i18n.language]);
 
   return (
     <Root>

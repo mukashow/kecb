@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 
 export const Info = () => {
   const [data, setData] = useState([]);
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const list = (address, category, date) => {
     return [
@@ -21,7 +21,7 @@ export const Info = () => {
     api('education_korea/')
       .then(({ data }) => setData(data))
       .catch(console.log);
-  }, []);
+  }, [i18n.language]);
 
   return (
     <Root>

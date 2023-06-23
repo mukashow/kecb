@@ -14,17 +14,19 @@ import img from '../images/image.svg';
 import { Pagination, Navigation } from 'swiper';
 import blob from '../images/blobFilled.svg';
 import JsFileDownloader from 'js-file-downloader';
+import { useTranslation } from 'react-i18next';
 
 export const NewsDetail = () => {
   const [data, setData] = useState(null);
   const [offset, setOffset] = useState(0);
   const { id } = useParams();
+  const { i18n } = useTranslation();
 
   useEffect(() => {
     api(`announcement/${id}/`)
       .then(({ data }) => setData(data))
       .catch(console.log);
-  }, []);
+  }, [i18n.language]);
 
   return (
     <>

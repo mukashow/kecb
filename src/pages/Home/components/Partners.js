@@ -3,15 +3,17 @@ import styled from 'styled-components';
 import { Container } from '../../../components';
 import img from '../../../images/image.svg';
 import { api } from '../../../api';
+import { useTranslation } from 'react-i18next';
 
 export const Partners = () => {
   const [data, setData] = useState([]);
+  const { i18n } = useTranslation();
 
   useEffect(() => {
     api('partners/')
       .then(({ data }) => setData(data))
       .catch(console.log);
-  }, []);
+  }, [i18n.language]);
 
   return (
     <Root>

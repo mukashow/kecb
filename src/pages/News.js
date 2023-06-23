@@ -9,13 +9,13 @@ import { useTranslation } from 'react-i18next';
 
 export const News = () => {
   const [data, setData] = useState(null);
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
     api('announcement/')
       .then(({ data }) => setData(data))
       .catch(console.log);
-  }, []);
+  }, [i18n.language]);
 
   return (
     <>

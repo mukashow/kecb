@@ -19,13 +19,13 @@ export const Gallery = () => {
   const [popupOpen, setPopupOpen] = useState(false);
   const [popupImages, setPopupImages] = useState([]);
   const [data, setData] = useState([]);
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
     api('photo_gallery/')
       .then(({ data }) => setData(data))
       .catch(console.log);
-  }, []);
+  }, [i18n.language]);
 
   return (
     <Root>

@@ -4,16 +4,18 @@ import { Container, SectionTitle } from '../components';
 import { useParams } from 'react-router-dom';
 import { api } from '../api';
 import { Text } from '../ui';
+import { useTranslation } from 'react-i18next';
 
 export const EducationDetail = () => {
   const [data, setData] = useState(null);
+  const { i18n } = useTranslation();
   const { id } = useParams();
 
   useEffect(() => {
     api(`education_korea/${id}/`)
       .then(({ data }) => setData(data))
       .catch(console.log);
-  }, []);
+  }, [i18n.language]);
 
   return (
     <>

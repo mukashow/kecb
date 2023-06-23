@@ -6,13 +6,13 @@ import { useTranslation } from 'react-i18next';
 
 export const Table = () => {
   const [data, setData] = useState([]);
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
     api('student_recruitment_announcements/')
       .then(({ data }) => setData(data))
       .catch(console.log);
-  }, []);
+  }, [i18n.language]);
 
   return (
     <Root>

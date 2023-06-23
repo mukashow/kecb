@@ -7,13 +7,13 @@ import JsFileDownloader from 'js-file-downloader';
 
 export const Material = () => {
   const [data, setData] = useState([]);
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
     api('lessonmaterials/')
       .then(({ data }) => setData(data))
       .catch(console.log);
-  }, []);
+  }, [i18n.language]);
 
   return (
     <Root>

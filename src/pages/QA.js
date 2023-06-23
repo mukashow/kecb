@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { api } from '../api';
 import blob from '../images/blobFilled.svg';
 import { useOutsideClick } from '../hooks';
+import { useTranslation } from 'react-i18next';
 
 const QaItem = () => {
   const [open, setOpen] = useState(false);
@@ -24,12 +25,13 @@ const QaItem = () => {
 
 export const QA = () => {
   const [data, setData] = useState(null);
+  const { i18n } = useTranslation();
 
   useEffect(() => {
     api('announcement/')
       .then(({ data }) => setData(data))
       .catch(console.log);
-  }, []);
+  }, [i18n.language]);
 
   return (
     <>

@@ -8,13 +8,13 @@ import { useTranslation } from 'react-i18next';
 export const Course = () => {
   const [data, setData] = useState(null);
   const { pathname } = useLocation();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
     api(pathname === '/courses/course' ? 'informationaboutcenter/' : 'informationclasse/')
       .then(({ data }) => setData(data[0]))
       .catch(console.log);
-  }, []);
+  }, [i18n.language]);
 
   return (
     <Root>

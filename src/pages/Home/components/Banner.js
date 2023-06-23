@@ -3,15 +3,17 @@ import styled from 'styled-components';
 import { Container } from '../../../components';
 import { Text } from '../../../ui';
 import { api } from '../../../api';
+import { useTranslation } from 'react-i18next';
 
 export const Banner = () => {
   const [data, setData] = useState(null);
+  const { i18n } = useTranslation();
 
   useEffect(() => {
     api('main_banner/')
       .then(({ data }) => setData(data))
       .catch(console.log);
-  }, []);
+  }, [i18n.language]);
 
   return (
     <Root style={{ backgroundImage: `url(${data?.main_image})` }}>

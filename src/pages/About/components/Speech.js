@@ -3,15 +3,17 @@ import styled from 'styled-components';
 import { SectionTitle } from '../../../components';
 import blob from '../../../images/blobFilled.svg';
 import { api } from '../../../api';
+import { useTranslation } from 'react-i18next';
 
 export const Speech = () => {
   const [data, setData] = useState(null);
+  const { i18n } = useTranslation();
 
   useEffect(() => {
     api('speech/')
       .then(({ data }) => setData(data[0]))
       .catch(console.log);
-  }, []);
+  }, [i18n.language]);
 
   return (
     <Root>

@@ -12,13 +12,13 @@ export const Activity = () => {
     pathname === '/about/activity/support'
       ? data.find(({ category }) => category === '2')
       : data.find(({ category }) => category === '1');
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
     api('activity/')
       .then(({ data }) => setData(data))
       .catch(console.log);
-  }, []);
+  }, [i18n.language]);
 
   return (
     <Root>

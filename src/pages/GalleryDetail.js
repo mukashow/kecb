@@ -5,16 +5,18 @@ import { useParams } from 'react-router-dom';
 import { api } from '../api';
 import { Text } from '../ui';
 import img from '../images/image.svg';
+import { useTranslation } from 'react-i18next';
 
 export const GalleryDetail = () => {
   const [data, setData] = useState(null);
   const { id } = useParams();
+  const { i18n } = useTranslation();
 
   useEffect(() => {
     api(`photo_gallery/${id}/`)
       .then(({ data }) => setData(data))
       .catch(console.log);
-  }, []);
+  }, [i18n.language]);
 
   return (
     <>

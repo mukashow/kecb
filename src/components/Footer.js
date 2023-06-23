@@ -11,26 +11,31 @@ import { api } from '../api';
 export const Footer = () => {
   const contacts = useSelector(state => state.main.contacts);
   const [geolocation, setGeolocation] = useState(null);
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
     api('rental/')
       .then(({ data }) => setGeolocation(data))
       .catch(console.log);
-  }, []);
+  }, [i18n.language]);
 
   useEffect(() => {
+    let map;
     if (geolocation) {
       const coords = geolocation.geolocation.split(',').map(geo => +geo);
 
       DG.then(() => {
-        let map = DG.map('map', {
+        map = DG.map('map', {
           center: coords,
           zoom: 13,
         });
         DG.marker(coords).addTo(map);
       });
     }
+
+    return () => {
+      if (map) map.remove();
+    };
   }, [geolocation]);
 
   return (
