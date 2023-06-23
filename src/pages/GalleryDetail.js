@@ -28,20 +28,16 @@ export const GalleryDetail = () => {
         </Head>
         <div dangerouslySetInnerHTML={{ __html: data?.description }} />
         <Grid>
-          <div
-            style={{
-              backgroundImage: `url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHZAq08u4YaR0Jsu2CgeptdxC74y-9QEeFYEAb6YHP&s)`,
-            }}
-          >
-            <img src={img} alt="" />
-          </div>
-          <div
-            style={{
-              backgroundImage: `url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHZAq08u4YaR0Jsu2CgeptdxC74y-9QEeFYEAb6YHP&s)`,
-            }}
-          >
-            <img src={img} alt="" />
-          </div>
+          {data?.photos.map(({ image, id }) => (
+            <div
+              key={id}
+              style={{
+                backgroundImage: `url(${image})`,
+              }}
+            >
+              <img src={img} alt="" />
+            </div>
+          ))}
         </Grid>
       </Root>
     </>
