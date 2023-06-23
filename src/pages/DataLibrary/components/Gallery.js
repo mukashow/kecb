@@ -23,7 +23,12 @@ export const Gallery = () => {
       <Grid>
         {data.map(item => (
           <Link key={item.id} to={`/gallery/${item.id}`} style={{ textDecoration: 'none' }}>
-            <Card {...item} subtitle={item.category} direction="column" />
+            <Card
+              {...item}
+              subtitle={item.category}
+              direction="column"
+              image={item.photos[0]?.image}
+            />
           </Link>
         ))}
       </Grid>

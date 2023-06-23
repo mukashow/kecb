@@ -1,19 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useMemo } from 'react';
 import styled from 'styled-components';
 import { Container } from '../../../components';
 import { Text } from '../../../ui';
-import { api } from '../../../api';
-import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
 export const Banner = () => {
-  const [data, setData] = useState(null);
-  const { i18n } = useTranslation();
-
-  useEffect(() => {
-    api('main_banner/')
-      .then(({ data }) => setData(data))
-      .catch(console.log);
-  }, [i18n.language]);
+  const banners = useSelector(state => state.main.banners);
+  const data = useMemo(() => {
+    return banners.find(({ page }) => page === 'Главная страница');
+  }, [banners]);
 
   return (
     <Root style={{ backgroundImage: `url(${data?.main_image})` }}>

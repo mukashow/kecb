@@ -1,8 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchContacts } from './action';
+import { fetchBanners, fetchContacts } from './action';
 
 const initialState = {
   contacts: null,
+  banners: [],
 };
 
 export const main = createSlice({
@@ -12,6 +13,9 @@ export const main = createSlice({
   extraReducers: {
     [fetchContacts.fulfilled]: (state, { payload }) => {
       state.contacts = payload[0];
+    },
+    [fetchBanners.fulfilled]: (state, { payload }) => {
+      state.banners = payload;
     },
   },
 });

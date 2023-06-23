@@ -14,12 +14,14 @@ import {
 } from '../../../components';
 import { Button } from '../../../ui';
 import { api } from '../../../api';
+import { useNavigate } from 'react-router-dom';
 
 export const Gallery = () => {
   const [popupOpen, setPopupOpen] = useState(false);
   const [popupImages, setPopupImages] = useState([]);
   const [data, setData] = useState([]);
   const { t, i18n } = useTranslation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     api('photo_gallery/')
@@ -30,7 +32,10 @@ export const Gallery = () => {
   return (
     <Root>
       <SectionTitle>{t('gallery')}</SectionTitle>
-      <Button as="a" style={{ marginLeft: window.innerWidth >= 700 ? 'auto' : 0 }}>
+      <Button
+        style={{ marginLeft: window.innerWidth >= 700 ? 'auto' : 0 }}
+        onClick={() => navigate('/library/gallery')}
+      >
         {t('allGallery')}
       </Button>
       <Slider
@@ -40,7 +45,7 @@ export const Gallery = () => {
         pagination
         breakpoints={{ 550: { slidesPerView: 2 }, 900: { slidesPerView: 3, spaceBetween: 30 } }}
       >
-        {data.map(item => (
+        {data.slice(0, 3).map(item => (
           <SwiperSlide
             key={item.id}
             onClick={() => {

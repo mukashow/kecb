@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export const Button = ({ children, style, as = 'button' }) => {
+export const Button = ({ children, style, as = 'button', ...props }) => {
   return (
-    <Root style={style} as={as}>
+    <Root style={style} as={as} {...props}>
       {children}
     </Root>
   );

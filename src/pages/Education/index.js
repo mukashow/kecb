@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import styled from 'styled-components';
 import { useLocation } from 'react-router-dom';
 import { Container, Tabs } from '../../components';
@@ -6,8 +6,13 @@ import { Text } from '../../ui';
 import blob from '../../images/blobFilled.svg';
 import { Info, Table } from './components';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
 export const Education = () => {
+  const banners = useSelector(state => state.main.banners);
+  const banner = useMemo(() => {
+    return banners.find(({ page }) => page === 'Обучение в Корее');
+  }, [banners]);
   const { pathname } = useLocation();
   const { t } = useTranslation();
 
@@ -15,8 +20,7 @@ export const Education = () => {
     <>
       <Banner
         style={{
-          backgroundImage:
-            'url(https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png)',
+          backgroundImage: `url(${banner?.main_image})`,
         }}
       >
         <Container>

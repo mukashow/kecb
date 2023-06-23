@@ -21,15 +21,21 @@ export const Material = () => {
         {t('materialForLesson')}
       </SectionTitle>
       <Grid>
-        {data.map(item => (
-          <div
-            key={item.id}
-            style={{ cursor: 'pointer' }}
-            onClick={() => new JsFileDownloader({ url: item.file })}
-          >
-            <DocCard {...item} />
-          </div>
-        ))}
+        {data.map(item =>
+          item.type === 'Файл' ? (
+            <div
+              key={item.id}
+              style={{ cursor: 'pointer' }}
+              onClick={() => new JsFileDownloader({ url: item.file })}
+            >
+              <DocCard {...item} />
+            </div>
+          ) : (
+            <a key={item.id} style={{ textDecoration: 'none' }} href={item.link} target="_blank" s>
+              <DocCard {...item} iconId="link" />
+            </a>
+          )
+        )}
       </Grid>
     </Root>
   );

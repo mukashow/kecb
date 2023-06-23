@@ -1,30 +1,35 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { AppPagination, Card, Container } from '../components';
 import { Text } from '../ui';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { api } from '../api';
 import blob from '../images/blobFilled.svg';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
 export const News = () => {
+  const banners = useSelector(state => state.main.banners);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const banner = useMemo(() => {
+    return banners.find(({ page }) => page === 'Объявления');
+  }, [banners]);
   const [data, setData] = useState(null);
   const { t, i18n } = useTranslation();
 
   useEffect(() => {
-    api('announcement/')
+    if (!searchParams.has('page') || !searchParams.has('page_size')) {
+      setSearchParams({ page: 1, page_size: 10 });
+    }
+
+    api(`announcement/?${searchParams}`)
       .then(({ data }) => setData(data))
       .catch(console.log);
-  }, [i18n.language]);
+  }, [i18n.language, searchParams]);
 
   return (
     <>
-      <Banner
-        style={{
-          backgroundImage:
-            'url(https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png)',
-        }}
-      >
+      <Banner style={{ backgroundImage: `url(${banner?.main_image})` }}>
         <Container>
           <Text fz="clamp(32px, 4vw, 50px)" color="white" as="h1" fw={700}>
             {t('announcement')}
@@ -38,14 +43,14 @@ export const News = () => {
           style={{ bottom: 'auto', left: 'auto', top: 0, right: 0, transform: 'rotate(180deg)' }}
         />
         <Root>
-          <Filter>
-            <FilterBtn $active>Общее</FilterBtn>
-            <FilterBtn>Общее</FilterBtn>
-            <FilterBtn>Общее</FilterBtn>
-            <FilterBtn>Общее</FilterBtn>
-            <FilterBtn>Общее</FilterBtn>
-            <FilterBtn>Общее</FilterBtn>
-          </Filter>
+          {/*<Filter>*/}
+          {/*  <FilterBtn $active>Общее</FilterBtn>*/}
+          {/*  <FilterBtn>Общее</FilterBtn>*/}
+          {/*  <FilterBtn>Общее</FilterBtn>*/}
+          {/*  <FilterBtn>Общее</FilterBtn>*/}
+          {/*  <FilterBtn>Общее</FilterBtn>*/}
+          {/*  <FilterBtn>Общее</FilterBtn>*/}
+          {/*</Filter>*/}
           <Grid>
             {data?.results.map(item => (
               <Link key={item.id} to={`/news/${item.id}/`} style={{ textDecoration: 'none' }}>
@@ -53,7 +58,7 @@ export const News = () => {
               </Link>
             ))}
           </Grid>
-          <AppPagination />
+          <AppPagination count={data?.count} />
         </Root>
       </div>
     </>
@@ -68,7 +73,7 @@ const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
   gap: clamp(20px, 2.5vw, 30px);
-  padding: clamp(40px, 4.5vw, 50px) 0 30px;
+  padding-bottom: 30px;
 
   @media (max-width: 700px) {
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -125,4 +130,5 @@ const Filter = styled.div`
   display: flex;
   margin: -7px -5px;
   flex-wrap: wrap;
+  padding-bottom: clamp(40px, 4.5vw, 50px);
 `;

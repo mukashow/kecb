@@ -4,11 +4,12 @@ import { useTranslation } from 'react-i18next';
 import { Container, SectionTitle, Card } from '../../../components';
 import { Button } from '../../../ui';
 import { api } from '../../../api';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export const News = () => {
   const [data, setData] = useState(null);
   const { t, i18n } = useTranslation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     api('announcement/')
@@ -19,15 +20,19 @@ export const News = () => {
   return (
     <Root>
       <SectionTitle>{t('news')}</SectionTitle>
-      <Button as="a" style={{ marginLeft: window.innerWidth >= 700 ? 'auto' : 0 }}>
+      <Button
+        style={{ marginLeft: window.innerWidth >= 700 ? 'auto' : 0 }}
+        onClick={() => navigate('/news/?page=1&page_size=10')}
+      >
         {t('allNews')}
       </Button>
       <Grid>
-        {data?.results.map(item => (
-          <Link key={item.id} to={`/news/${item.id}`} style={{ textDecoration: 'none' }}>
-            <Card {...item} />
-          </Link>
-        ))}
+        {data &&
+          data.results.slice(0, 6).map(item => (
+            <Link key={item.id} to={`/news/${item.id}`} style={{ textDecoration: 'none' }}>
+              <Card {...item} />
+            </Link>
+          ))}
       </Grid>
     </Root>
   );

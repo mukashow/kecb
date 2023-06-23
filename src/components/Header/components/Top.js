@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
-import logo from '../../../images/logo.png';
+import logo from '../../../images/logo.svg';
 import { Icon } from '../../../ui';
 import { Logo, Top as Root } from '../index';
 

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Container } from '../../../components';
-import img from '../../../images/image.svg';
 import { api } from '../../../api';
 import { useTranslation } from 'react-i18next';
 
@@ -18,8 +17,11 @@ export const Partners = () => {
   return (
     <Root>
       <Slider>
-        <Slide src={img} />
-        <Slide src={img} />
+        {data.map(({ id, image, link }) => (
+          <Slide href={link} target="_blank" key={id}>
+            <img src={image} alt="" />
+          </Slide>
+        ))}
       </Slider>
     </Root>
   );
@@ -29,16 +31,23 @@ const Slider = styled(Container)`
   display: flex;
   flex-wrap: nowrap;
   overflow: auto;
+  align-items: center;
 `;
 
-const Slide = styled.img`
+const Slide = styled.a`
   display: block;
   width: 170px;
-  object-fit: contain;
+
   flex-shrink: 0;
 
   &:not(:last-child) {
     margin-right: 40px;
+  }
+
+  img {
+    object-fit: contain;
+    display: block;
+    width: 100%;
   }
 `;
 

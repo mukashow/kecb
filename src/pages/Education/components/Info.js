@@ -30,7 +30,7 @@ export const Info = () => {
       </SectionTitle>
       <Grid>
         {data.map(item => (
-          <Link key={item.id} to={`/education_info/${item.id}`} style={{ textDecoration: 'none' }}>
+          <a key={item.id} href={item.link} target="_blank" style={{ textDecoration: 'none' }}>
             <Card
               list={list(item.address, item.category, item.data)}
               image={item.icon}
@@ -38,7 +38,7 @@ export const Info = () => {
               titleColor="#363636"
               arrow
             />
-          </Link>
+          </a>
         ))}
       </Grid>
     </Root>

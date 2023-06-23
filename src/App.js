@@ -15,14 +15,17 @@ import {
   QA,
 } from './pages';
 import { Footer, Header } from './components';
-import { fetchContacts } from './store/action';
+import { fetchBanners, fetchContacts } from './store/action';
+import { useTranslation } from 'react-i18next';
 
 export const App = () => {
+  const { i18n } = useTranslation();
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchContacts());
-  }, []);
+    dispatch(fetchBanners());
+  }, [i18n.language]);
 
   return (
     <Root>

@@ -2,10 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import { Icon } from '../ui';
 
-export const DocCard = ({ title }) => {
+export const DocCard = ({ title, iconId }) => {
   return (
     <Root>
-      <Icon id="cloud" />
+      <Icon id={iconId || 'cloud'} />
       {title}
     </Root>
   );

@@ -7,6 +7,8 @@ export const Card = ({
   title,
   titleColor,
   description,
+  short_description,
+  limitDescription = true,
   type,
   data,
   direction = 'row',
@@ -18,7 +20,7 @@ export const Card = ({
   list,
 }) => {
   return (
-    <Root $direction={direction} className={className}>
+    <Root $direction={direction} className={className} $limitDescription={limitDescription}>
       <div>
         <img src={img} />
         <img src={image} />
@@ -47,7 +49,7 @@ export const Card = ({
           fw={direction === 'column' || history ? 300 : 400}
           {...(history && { color: '#4D5257' })}
         >
-          <span dangerouslySetInnerHTML={{ __html: description }} />
+          <span dangerouslySetInnerHTML={{ __html: short_description || description }} />
         </Text>
         {type && (
           <Text fz={12} lh="24px" mt={10} color="#4D5257">
@@ -109,13 +111,17 @@ const Root = styled.div`
     }
   }
 
-  p {
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    line-clamp: 3;
-    -webkit-box-orient: vertical;
-  }
+  ${({ $limitDescription }) =>
+    $limitDescription &&
+    css`
+      p {
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        line-clamp: 3;
+        -webkit-box-orient: vertical;
+      }
+    `}
 `;
 
 const Content = styled.div`

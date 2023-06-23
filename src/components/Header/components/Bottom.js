@@ -27,7 +27,9 @@ export const Bottom = React.forwardRef(({ setLangDropdownOpen, langDropdownOpen 
               <NavDropdownLink to="/about/activity">{t('centerActivity')}</NavDropdownLink>
             </NavDropdown>
           </NavDropdownBtn>
-          <NavDropdownBtnLink to="/news">{t('announcement')}</NavDropdownBtnLink>
+          <NavDropdownBtnLink to="/news/?page=1&page_size=10">
+            {t('announcement')}
+          </NavDropdownBtnLink>
           <NavDropdownBtn>
             {t('centerCourses')} <Icon id="arrowDown" width={16} height={16} />
             <NavDropdown>

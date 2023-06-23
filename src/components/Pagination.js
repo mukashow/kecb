@@ -1,17 +1,50 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import styled from 'styled-components';
 import { Icon } from '../ui';
+import { useSearchParams } from 'react-router-dom';
 
-export const Pagination = () => {
+export const Pagination = ({ count }) => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const pagesCount = useMemo(() => {
+    const pageSize = searchParams.get('page_size');
+    if (!pageSize || !count) return null;
+    return Math.ceil(count / +pageSize);
+  }, [searchParams, count]);
+
   return (
     <Root>
-      <div aria-disabled>
+      <div
+        aria-disabled={+searchParams.get('page') === 1}
+        onClick={() =>
+          setSearchParams({
+            page: +searchParams.get('page') - 1,
+            page_size: 10,
+          })
+        }
+      >
         <Icon id="paginationArrow" />
       </div>
-      <p>1</p>
-      <p>2</p>
-      <p>3</p>
-      <div style={{ transform: 'rotate(180deg)' }}>
+      {typeof pagesCount === 'number' &&
+        !isNaN(pagesCount) &&
+        [...Array(pagesCount).keys()].map(key => (
+          <div
+            className={+searchParams.get('page') === key + 1 ? 'active' : ''}
+            key={key}
+            onClick={() => setSearchParams({ page: key + 1, page_size: 10 })}
+          >
+            {key + 1}
+          </div>
+        ))}
+      <div
+        style={{ transform: 'rotate(180deg)' }}
+        aria-disabled={+searchParams.get('page') === pagesCount}
+        onClick={() =>
+          setSearchParams({
+            page: +searchParams.get('page') + 1,
+            page_size: 10,
+          })
+        }
+      >
         <Icon id="paginationArrow" />
       </div>
     </Root>
@@ -43,12 +76,13 @@ const Root = styled.div`
       width: 14px;
     }
 
-    &[aria-disabled] {
+    &[aria-disabled='true'] {
       color: #a6a6a6;
       pointer-events: none;
     }
 
-    &:not([aria-disabled]):hover {
+    &:not([aria-disabled='true']):hover,
+    &.active {
       background: #004098;
       color: white;
       cursor: pointer;

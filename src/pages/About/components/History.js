@@ -44,7 +44,7 @@ export const History = () => {
           {data.map((item, index, arr) => (
             <HistoryCard key={item.id} $position={index + 1} ref={el => onCardRef(el, index, arr)}>
               <span>{new Date(item.data).toLocaleDateString()}</span>
-              <Card description={item.description} history />
+              <Card description={item.description} history limitDescription={false} />
             </HistoryCard>
           ))}
         </Grid>

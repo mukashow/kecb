@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { Container } from '../components';
 import { Icon, Text } from '../ui';
@@ -7,8 +7,9 @@ import { api } from '../api';
 import blob from '../images/blobFilled.svg';
 import { useOutsideClick } from '../hooks';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
-const QaItem = () => {
+const QaItem = ({ question, answer }) => {
   const [open, setOpen] = useState(false);
   const ref = useRef();
   useOutsideClick(ref, () => setOpen(false));
@@ -16,20 +17,29 @@ const QaItem = () => {
   return (
     <Qa ref={ref}>
       <Item onClick={() => setOpen(!open)}>
-        Сколько раз в год принимаете на курсы корейского языка? <Icon id="arrowDown" />
+        {question} <Icon id="arrowDown" />
       </Item>
-      {open && <Item>Сколько раз в год принимаете на курсы корейского языка?</Item>}
+      {open && <Item dangerouslySetInnerHTML={{ __html: answer }} />}
     </Qa>
   );
 };
 
 export const QA = () => {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState([[], []]);
   const { i18n } = useTranslation();
+  const banners = useSelector(state => state.main.banners);
+  const banner = useMemo(() => {
+    return banners.find(({ page }) => page === 'Q&A');
+  }, [banners]);
 
   useEffect(() => {
-    api('announcement/')
-      .then(({ data }) => setData(data))
+    api('q_a/')
+      .then(({ data }) => {
+        setData([
+          data.slice(0, Math.ceil(data.length / 2)),
+          data.slice(Math.ceil(data.length / 2)),
+        ]);
+      })
       .catch(console.log);
   }, [i18n.language]);
 
@@ -37,8 +47,7 @@ export const QA = () => {
     <>
       <Banner
         style={{
-          backgroundImage:
-            'url(https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png)',
+          backgroundImage: `url(${banner?.main_image})`,
         }}
       >
         <Container>
@@ -54,22 +63,24 @@ export const QA = () => {
           style={{ bottom: 'auto', left: 'auto', top: 0, right: 0, transform: 'rotate(180deg)' }}
         />
         <Root>
-          <Filter>
-            <FilterBtn $active>Общее</FilterBtn>
-            <FilterBtn>Общее</FilterBtn>
-            <FilterBtn>Общее</FilterBtn>
-            <FilterBtn>Общее</FilterBtn>
-            <FilterBtn>Общее</FilterBtn>
-            <FilterBtn>Общее</FilterBtn>
-          </Filter>
+          {/*<Filter>*/}
+          {/*  <FilterBtn $active>Общее</FilterBtn>*/}
+          {/*  <FilterBtn>Общее</FilterBtn>*/}
+          {/*  <FilterBtn>Общее</FilterBtn>*/}
+          {/*  <FilterBtn>Общее</FilterBtn>*/}
+          {/*  <FilterBtn>Общее</FilterBtn>*/}
+          {/*  <FilterBtn>Общее</FilterBtn>*/}
+          {/*</Filter>*/}
           <GridWrap>
             <Grid>
-              <QaItem />
-              <QaItem />
+              {data[0].map(qa => (
+                <QaItem {...qa} key={qa.id} />
+              ))}
             </Grid>
             <Grid>
-              <QaItem />
-              <QaItem />
+              {data[1].map(qa => (
+                <QaItem {...qa} key={qa.id} />
+              ))}
             </Grid>
           </GridWrap>
         </Root>
@@ -84,7 +95,6 @@ const Root = styled(Container)`
 
 const GridWrap = styled.div`
   display: grid;
-  padding-top: 40px;
   grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
   gap: clamp(20px, 2.5vw, 30px);
 
@@ -149,16 +159,17 @@ const Filter = styled.div`
   display: flex;
   margin: -7px -5px;
   flex-wrap: wrap;
+  padding-bottom: 40px;
 `;
 
 const Item = styled.div`
   padding: clamp(20px, 2.2vw, 24px) clamp(15px, 2.2vw, 30px);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
 
   &:first-child {
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 
   &:last-child:not(:first-child) {

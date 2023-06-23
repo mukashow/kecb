@@ -10,8 +10,8 @@ export const Activity = () => {
   const { pathname } = useLocation();
   const current =
     pathname === '/about/activity/support'
-      ? data.find(({ category }) => category === '2')
-      : data.find(({ category }) => category === '1');
+      ? data.find(({ category }) => category === 'Деятельность по поддержке иностранных студентов')
+      : data.find(({ category }) => category === 'Распространение кор.языка');
   const { t, i18n } = useTranslation();
 
   useEffect(() => {
