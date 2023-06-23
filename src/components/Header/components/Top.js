@@ -1,15 +1,23 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
+import { Link as NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import logo from '../../../images/logo.svg';
 import { Icon } from '../../../ui';
 import { Logo, Top as Root } from '../index';
 import { api } from '../../../api';
+import { useOutsideClick } from '../../../hooks';
+import { useTranslation } from 'react-i18next';
 
 export const Top = () => {
   const contacts = useSelector(state => state.main.contacts);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const { t } = useTranslation();
+  const ref = useRef();
+  useOutsideClick(ref, () => setDropdownOpen(false));
 
   const onSearch = e => {
+    setDropdownOpen(true);
     // api(`announcement/?search=${e.target.value}`).catch(console.log);
   };
 
@@ -20,9 +28,17 @@ export const Top = () => {
           <img src={logo} />
         </Logo>
       )}
-      <Search>
+      <Search ref={ref}>
         <SearchIcon id="search" />
         <input type="text" onChange={onSearch} />
+        {/*{dropdownOpen && (*/}
+        {/*  <Dropdown>*/}
+        {/*    <NavLink to={`/news/`} onClick={() => setDropdownOpen(false)}>*/}
+        {/*      Ttile*/}
+        {/*    </NavLink>*/}
+        {/*    <span>{t('empty')}</span>*/}
+        {/*  </Dropdown>*/}
+        {/*)}*/}
       </Search>
       <Links>
         {contacts?.phone1 && (
@@ -59,6 +75,37 @@ export const Top = () => {
 };
 
 const SearchIcon = styled(Icon)``;
+
+const Dropdown = styled.div`
+  border: 1px solid #004098;
+  position: absolute;
+  top: calc(100% + 5px);
+  width: 100%;
+  background: white;
+  border-radius: 15px;
+  z-index: 2;
+
+  a,
+  span {
+    text-decoration: none;
+    font-size: 14px;
+    color: #0c101a;
+    display: block;
+    padding: 5px 10px;
+
+    &:first-child {
+      padding-top: 10px;
+    }
+
+    &:last-child {
+      padding-bottom: 10px;
+    }
+  }
+
+  span {
+    text-align: center;
+  }
+`;
 
 const Search = styled.div`
   height: 30px;

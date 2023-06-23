@@ -27,5 +27,6 @@
   "date": "Дата",
   "name": "Название",
   "trainingAids": "Учебные пособия",
-  "photoGallery": "Фотогалерея"
+  "photoGallery": "Фотогалерея",
+  "empty": "Пусто"
 }

@@ -45,7 +45,7 @@ export const Gallery = () => {
         pagination
         breakpoints={{ 550: { slidesPerView: 2 }, 900: { slidesPerView: 3, spaceBetween: 30 } }}
       >
-        {data.slice(0, 3).map(item => (
+        {data.slice(0, 6).map(item => (
           <SwiperSlide
             key={item.id}
             onClick={() => {

@@ -5,10 +5,11 @@ import { useParams } from 'react-router-dom';
 import { api } from '../api';
 import { Text } from '../ui';
 import { useTranslation } from 'react-i18next';
+import { Helmet } from 'react-helmet';
 
 export const EducationDetail = () => {
   const [data, setData] = useState(null);
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
   const { id } = useParams();
 
   useEffect(() => {
@@ -19,6 +20,9 @@ export const EducationDetail = () => {
 
   return (
     <>
+      <Helmet>
+        <title>{t('educInKorea')}</title>
+      </Helmet>
       <Root>
         <SectionTitle mb={14}>{data?.name}</SectionTitle>
         <Head>

@@ -6,11 +6,12 @@ import { api } from '../api';
 import { Text } from '../ui';
 import img from '../images/image.svg';
 import { useTranslation } from 'react-i18next';
+import { Helmet } from 'react-helmet';
 
 export const GalleryDetail = () => {
   const [data, setData] = useState(null);
   const { id } = useParams();
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
 
   useEffect(() => {
     api(`photo_gallery/${id}/`)
@@ -20,6 +21,9 @@ export const GalleryDetail = () => {
 
   return (
     <>
+      <Helmet>
+        <title>{t('photoGallery')}</title>
+      </Helmet>
       <Root>
         <SectionTitle mb={14}>{data?.name}</SectionTitle>
         <Head>

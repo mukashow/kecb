@@ -2,10 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 import { Banner, Gallery, News, Partners } from './components';
 import blob from '../../images/blobFilled.svg';
+import { Helmet } from 'react-helmet';
 
 export const Home = () => {
   return (
     <>
+      <Helmet>
+        <title>KOREAN EDUCATION CENTER IN BISHKEK</title>
+      </Helmet>
       <Banner />
       <div style={{ position: 'relative' }}>
         <Blob src={blob} />

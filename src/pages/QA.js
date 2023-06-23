@@ -8,6 +8,7 @@ import blob from '../images/blobFilled.svg';
 import { useOutsideClick } from '../hooks';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
+import { Helmet } from 'react-helmet';
 
 const QaItem = ({ question, answer }) => {
   const [open, setOpen] = useState(false);
@@ -45,6 +46,9 @@ export const QA = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Q&A</title>
+      </Helmet>
       <Banner
         style={{
           backgroundImage: `url(${banner?.main_image})`,

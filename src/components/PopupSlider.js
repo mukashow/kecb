@@ -46,7 +46,7 @@ export const PopupSlider = ({ images, isOpen, close }) => {
         spaceBetween={15}
       >
         {images.map(image => (
-          <SwiperSlide style={{ backgroundImage: `url(${image})` }} />
+          <SwiperSlide key={image} style={{ backgroundImage: `url(${image})` }} />
         ))}
       </Slider>
       <SliderPagination className="slider-pagination swiper-pagination" />

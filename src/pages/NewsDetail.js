@@ -15,12 +15,13 @@ import { Pagination, Navigation } from 'swiper';
 import blob from '../images/blobFilled.svg';
 import JsFileDownloader from 'js-file-downloader';
 import { useTranslation } from 'react-i18next';
+import { Helmet } from 'react-helmet';
 
 export const NewsDetail = () => {
   const [data, setData] = useState(null);
   const [offset, setOffset] = useState(0);
   const { id } = useParams();
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
 
   useEffect(() => {
     api(`announcement/${id}/`)
@@ -30,6 +31,9 @@ export const NewsDetail = () => {
 
   return (
     <>
+      <Helmet>
+        <title>{t('announcement')}</title>
+      </Helmet>
       <Root>
         <SectionTitle mb={14}>{data?.title}</SectionTitle>
         <Head>

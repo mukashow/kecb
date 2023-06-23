@@ -7,6 +7,7 @@ import blob from '../../images/blobFilled.svg';
 import { Activity, History, Speech } from './components';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
+import { Helmet } from 'react-helmet';
 
 export const About = () => {
   const banners = useSelector(state => state.main.banners);
@@ -18,6 +19,9 @@ export const About = () => {
 
   return (
     <>
+      <Helmet>
+        <title>{t('aboutCenter')}</title>
+      </Helmet>
       <Banner
         style={{
           backgroundImage: `url(${data?.main_image})`,

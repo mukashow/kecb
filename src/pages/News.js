@@ -7,6 +7,7 @@ import { api } from '../api';
 import blob from '../images/blobFilled.svg';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
+import { Helmet } from 'react-helmet';
 
 export const News = () => {
   const banners = useSelector(state => state.main.banners);
@@ -18,17 +19,22 @@ export const News = () => {
   const { t, i18n } = useTranslation();
 
   useEffect(() => {
-    if (!searchParams.has('page') || !searchParams.has('page_size')) {
-      setSearchParams({ page: 1, page_size: 10 });
-    }
-
     api(`announcement/?${searchParams}`)
       .then(({ data }) => setData(data))
       .catch(console.log);
   }, [i18n.language, searchParams]);
 
+  useEffect(() => {
+    if (!searchParams.has('page') || !searchParams.has('page_size')) {
+      setSearchParams({ page: 1, page_size: 10 });
+    }
+  }, []);
+
   return (
     <>
+      <Helmet>
+        <title>{t('announcement')}</title>
+      </Helmet>
       <Banner style={{ backgroundImage: `url(${banner?.main_image})` }}>
         <Container>
           <Text fz="clamp(32px, 4vw, 50px)" color="white" as="h1" fw={700}>
