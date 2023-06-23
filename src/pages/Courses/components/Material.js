@@ -31,7 +31,7 @@ export const Material = () => {
               <DocCard {...item} />
             </div>
           ) : (
-            <a key={item.id} style={{ textDecoration: 'none' }} href={item.link} target="_blank" s>
+            <a key={item.id} style={{ textDecoration: 'none' }} href={item.link} target="_blank">
               <DocCard {...item} iconId="link" />
             </a>
           )
