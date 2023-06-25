@@ -17,6 +17,7 @@ import blob from '../images/blobFilled.svg';
 import JsFileDownloader from 'js-file-downloader';
 import { useTranslation } from 'react-i18next';
 import { Helmet } from 'react-helmet';
+import ReactPlayer from 'react-player';
 
 export const NewsDetail = () => {
   const [data, setData] = useState(null);
@@ -82,6 +83,12 @@ export const NewsDetail = () => {
                 <img src={img} style={{ visibility: 'hidden' }} />
               </SwiperSlide>
             ))}
+            {data?.link_youtube && (
+              <SwiperSlide>
+                <ReactPlayer className="youtube" url={data?.link_youtube} controls />
+                <img src={img} style={{ visibility: 'hidden' }} />
+              </SwiperSlide>
+            )}
           </Slider>
           <NavigationArrow className="slider-prev">
             <Icon id="arrow" />
@@ -168,6 +175,15 @@ const Slider = styled(Swiper)`
       display: block;
       height: clamp(200px, 27vw, 350px);
     }
+  }
+
+  .youtube {
+    position: absolute;
+    inset: 0;
+    width: auto !important;
+    height: auto !important;
+    border-radius: 20px;
+    overflow: hidden;
   }
 
   ${PaginationStyle}

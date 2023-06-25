@@ -68,6 +68,7 @@ export const News = () => {
             </FilterBtn>
             {filter.map(({ title, key }) => (
               <FilterBtn
+                key={key}
                 onClick={() => setSearchParams({ page: 1, page_size: 10, type: key })}
                 $active={searchParams.get('type') === key}
               >

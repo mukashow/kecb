@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { Container } from '../components';
 import { Icon, Text } from '../ui';
-import { Link } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { api } from '../api';
 import blob from '../images/blobFilled.svg';
 import { useOutsideClick } from '../hooks';
@@ -25,16 +25,28 @@ const QaItem = ({ question, answer }) => {
   );
 };
 
+const filter = [
+  { title: 'GKS', key: 'GKS' },
+  { title: 'other', key: 'Разное' },
+  { title: 'grants', key: 'Гранты для этнических корейцев' },
+  { title: 'vacancies', key: 'Вакансии' },
+  { title: 'koreanCourses', key: 'Курсы корейского' },
+  { title: 'events', key: 'Мероприятия' },
+  { title: 'TOPIK', key: 'TOPIK' },
+  { title: 'another', key: 'Другое' },
+];
+
 export const QA = () => {
   const [data, setData] = useState([[], []]);
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const [searchParams, setSearchParams] = useSearchParams();
   const banners = useSelector(state => state.main.banners);
   const banner = useMemo(() => {
     return banners.find(({ page }) => page === 'Q&A');
   }, [banners]);
 
   useEffect(() => {
-    api('q_a/')
+    api(`q_a/?${searchParams}`)
       .then(({ data }) => {
         setData([
           data.slice(0, Math.ceil(data.length / 2)),
@@ -42,7 +54,7 @@ export const QA = () => {
         ]);
       })
       .catch(console.log);
-  }, [i18n.language]);
+  }, [i18n.language, searchParams]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -71,14 +83,20 @@ export const QA = () => {
           style={{ bottom: 'auto', left: 'auto', top: 0, right: 0, transform: 'rotate(180deg)' }}
         />
         <Root>
-          {/*<Filter>*/}
-          {/*  <FilterBtn $active>Общее</FilterBtn>*/}
-          {/*  <FilterBtn>Общее</FilterBtn>*/}
-          {/*  <FilterBtn>Общее</FilterBtn>*/}
-          {/*  <FilterBtn>Общее</FilterBtn>*/}
-          {/*  <FilterBtn>Общее</FilterBtn>*/}
-          {/*  <FilterBtn>Общее</FilterBtn>*/}
-          {/*</Filter>*/}
+          <Filter>
+            <FilterBtn onClick={() => setSearchParams({})} $active={!searchParams.get('type')}>
+              {t('total')}
+            </FilterBtn>
+            {filter.map(({ title, key }) => (
+              <FilterBtn
+                key={key}
+                onClick={() => setSearchParams({ type: key })}
+                $active={searchParams.get('type') === key}
+              >
+                {title === key ? title : t(title)}
+              </FilterBtn>
+            ))}
+          </Filter>
           <GridWrap>
             <Grid>
               {data[0].map(qa => (
@@ -126,7 +144,7 @@ const Banner = styled.div`
   align-items: center;
 `;
 
-const FilterBtn = styled(Link)`
+const FilterBtn = styled.div`
   height: clamp(40px, 4.5vw, 50px);
   padding: 0 20px;
   border: 1px solid #004098;
@@ -137,6 +155,7 @@ const FilterBtn = styled(Link)`
   align-items: center;
   text-decoration: none;
   margin: 7px 5px;
+  cursor: pointer;
 
   &:hover {
     color: #004098;
