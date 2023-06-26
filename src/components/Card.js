@@ -25,7 +25,7 @@ export const Card = ({
     <Root $direction={direction} className={className} $limitDescription={limitDescription}>
       <div onClick={onImageClick}>
         <img src={img} />
-        <img src={image} />
+        {image && <img src={image} />}
       </div>
       <Content onClick={onContentClick} {...(onContentClick && { style: { cursor: 'pointer' } })}>
         {title && (
@@ -86,7 +86,6 @@ const Root = styled.div`
     display: block;
     object-fit: cover;
     flex-shrink: 2;
-    background: #e5edf4;
 
     &:first-child {
       width: 178px;
