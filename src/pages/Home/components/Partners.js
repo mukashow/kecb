@@ -6,7 +6,17 @@ import { useTranslation } from 'react-i18next';
 
 export const Partners = () => {
   const [data, setData] = useState([]);
+  const [center, setCenter] = useState(false);
   const { i18n } = useTranslation();
+
+  const onRef = target => {
+    if (target) {
+      const width =
+        [...target.children].reduce((acc, el) => acc + el.clientWidth, 0) +
+        (40 * [...target.children].length - 1);
+      setCenter(width <= target.clientWidth);
+    }
+  };
 
   useEffect(() => {
     api('partners/')
@@ -16,7 +26,7 @@ export const Partners = () => {
 
   return (
     <Root>
-      <Slider>
+      <Slider ref={onRef} style={{ justifyContent: center ? 'center' : 'flex-start' }}>
         {data.map(({ id, image, link }) => (
           <Slide href={link} target="_blank" key={id}>
             <img src={image} alt="" />

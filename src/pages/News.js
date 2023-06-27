@@ -77,7 +77,7 @@ export const News = () => {
             ))}
           </Filter>
           <Grid>
-            {data?.results.map(item => (
+            {data?.results.map(({ description, ...item }) => (
               <Link key={item.id} to={`/news/${item.id}/`} style={{ textDecoration: 'none' }}>
                 <Card {...item} arrow />
               </Link>

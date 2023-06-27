@@ -23,10 +23,12 @@ export const Card = ({
 }) => {
   return (
     <Root $direction={direction} className={className} $limitDescription={limitDescription}>
-      <div onClick={onImageClick}>
-        <img src={img} />
-        {image && <img src={image} />}
-      </div>
+      {image && (
+        <div onClick={onImageClick}>
+          <img src={img} />
+          <img src={image} />
+        </div>
+      )}
       <Content onClick={onContentClick} {...(onContentClick && { style: { cursor: 'pointer' } })}>
         {title && (
           <Text fz="clamp(16px, 2vw, 18px)" mb={4} color={titleColor || '#0C101A'} fw={700}>

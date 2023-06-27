@@ -1,13 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export const Container = ({ children, className, style }) => {
+export const Container = React.forwardRef(({ children, className, style }, ref) => {
   return (
-    <Root className={className} style={style}>
+    <Root className={className} style={style} ref={ref}>
       {children}
     </Root>
   );
-};
+});
 
 const Root = styled.div`
   max-width: 1230px;

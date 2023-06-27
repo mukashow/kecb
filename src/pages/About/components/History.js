@@ -64,6 +64,10 @@ const Root = styled.div`
 const HistoryCard = styled.div`
   position: relative;
 
+  & > div {
+    min-height: 150px;
+  }
+
   & > span {
     display: flex;
     align-items: center;

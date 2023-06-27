@@ -28,7 +28,7 @@ export const News = () => {
       </Button>
       <Grid>
         {data &&
-          data.results.slice(0, 6).map(item => (
+          data.results.slice(0, 6).map(({ description, ...item }) => (
             <Link key={item.id} to={`/news/${item.id}`} style={{ textDecoration: 'none' }}>
               <Card {...item} />
             </Link>
