@@ -77,6 +77,7 @@ const HistoryCard = styled.div`
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
+    white-space: nowrap;
 
     &::before {
       content: '';
