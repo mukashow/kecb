@@ -5,6 +5,29 @@ import { api } from '../../../api';
 import { useTranslation } from 'react-i18next';
 import JsFileDownloader from 'js-file-downloader';
 
+const Item = item => {
+  const [loading, setLoading] = useState(false);
+
+  const onDownload = async () => {
+    setLoading(true);
+    await new JsFileDownloader({ url: item.file });
+    setLoading(false);
+  };
+
+  return item.type === 'Файл' ? (
+    <div
+      style={{ cursor: 'pointer', pointerEvents: loading ? 'none' : 'auto' }}
+      onClick={onDownload}
+    >
+      <DocCard {...item} loading={loading} />
+    </div>
+  ) : (
+    <a key={item.id} style={{ textDecoration: 'none' }} href={item.link} target="_blank">
+      <DocCard {...item} iconId="link" />
+    </a>
+  );
+};
+
 export const Material = () => {
   const [data, setData] = useState([]);
   const { t, i18n } = useTranslation();
@@ -21,21 +44,9 @@ export const Material = () => {
         {t('materialForLesson')}
       </SectionTitle>
       <Grid>
-        {data.map(item =>
-          item.type === 'Файл' ? (
-            <div
-              key={item.id}
-              style={{ cursor: 'pointer' }}
-              onClick={() => new JsFileDownloader({ url: item.file })}
-            >
-              <DocCard {...item} />
-            </div>
-          ) : (
-            <a key={item.id} style={{ textDecoration: 'none' }} href={item.link} target="_blank">
-              <DocCard {...item} iconId="link" />
-            </a>
-          )
-        )}
+        {data.map(item => (
+          <Item {...item} key={item.id} />
+        ))}
       </Grid>
     </Root>
   );
