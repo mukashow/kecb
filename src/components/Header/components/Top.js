@@ -8,11 +8,23 @@ import { Logo, Top as Root } from '../index';
 import { api } from '../../../api';
 import { useOutsideClick } from '../../../hooks';
 import { useTranslation } from 'react-i18next';
+import { Spinner } from '../../DocCard';
+
+function debounce(func, timeout = 300) {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      func.apply(this, args);
+    }, timeout);
+  };
+}
 
 export const Top = () => {
   const contacts = useSelector(state => state.main.contacts);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
   const { t } = useTranslation();
   const ref = useRef();
   const inputRef = useRef();
@@ -24,9 +36,12 @@ export const Top = () => {
       return;
     }
     setDropdownOpen(true);
+    setData([]);
+    setLoading(true);
     api(`announcement/?search=${e.target.value}`)
       .then(({ data }) => setData(data.results))
-      .catch(console.log);
+      .catch(console.log)
+      .finally(() => setLoading(false));
   };
 
   return (
@@ -38,7 +53,7 @@ export const Top = () => {
       )}
       <Search ref={ref}>
         <SearchIcon id="search" />
-        <input type="text" onChange={onSearch} ref={inputRef} />
+        <input type="text" onChange={debounce(onSearch)} ref={inputRef} />
         {dropdownOpen && (
           <Dropdown>
             {data.map(({ id, title }) => (
@@ -53,7 +68,12 @@ export const Top = () => {
                 {title}
               </NavLink>
             ))}
-            {data.length === 0 && <span>{t('empty')}</span>}
+            {data.length === 0 && !loading && <span>{t('empty')}</span>}
+            {loading && (
+              <div style={{ display: 'flex', justifyContent: 'center', padding: 4 }}>
+                <Spinner />
+              </div>
+            )}
           </Dropdown>
         )}
       </Search>
@@ -101,7 +121,12 @@ const Dropdown = styled.div`
   background: white;
   border-radius: 15px;
   z-index: 2;
-  overflow: hidden;
+  max-height: 300px;
+  overflow: auto;
+
+  @media (max-width: 1024px) {
+    max-height: 200px;
+  }
 
   a,
   span {
