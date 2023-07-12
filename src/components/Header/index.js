@@ -133,7 +133,7 @@ export const Logo = styled(NavLink)`
 
   img {
     display: block;
-    height: clamp(43px, 4vw, 53px);
+    height: clamp(30px, 3.7vw, 45px);
   }
 
   @media (max-width: 1024px) {

@@ -18,7 +18,7 @@ export const Banner = () => {
           fw={700}
           color="#004098"
           as="h1"
-          fz="clamp(32px, 3vw, 40px)"
+          fz="clamp(32px, 4vw, 50px)"
           style={{ maxWidth: 647 }}
         >
           {data?.title}

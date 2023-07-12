@@ -22,7 +22,7 @@ export const Course = () => {
         {pathname === '/courses/course' ? t('courseInfo') : t('lessonInfo')}
       </SectionTitle>
       <Content>
-        <div dangerouslySetInnerHTML={{ __html: data?.content }} />
+        <div style={{ overflow: 'auto' }} dangerouslySetInnerHTML={{ __html: data?.content }} />
         <Images>
           <div>
             <img src={data?.main_image} alt="" />
@@ -51,6 +51,11 @@ const Content = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 40px;
+
+  table {
+    width: auto !important;
+    margin: 0 !important;
+  }
 
   * {
     line-height: 150%;

@@ -27,7 +27,6 @@ const QaItem = ({ question, answer }) => {
 
 const filter = [
   { title: 'GKS', key: 'GKS' },
-  { title: 'other', key: 'Разное' },
   { title: 'grants', key: 'Гранты для этнических корейцев' },
   { title: 'vacancies', key: 'Вакансии' },
   { title: 'koreanCourses', key: 'Курсы корейского' },

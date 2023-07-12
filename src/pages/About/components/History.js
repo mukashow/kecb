@@ -12,7 +12,7 @@ export const History = () => {
 
   const stickStyle = useMemo(() => {
     return {
-      height: `calc(100% - ${(cardHeight.first + cardHeight.last) / 2}px)`,
+      height: `calc(100% - ${(cardHeight.first + cardHeight.last - 50) / 2}px)`,
       top: cardHeight.first / 2,
     };
   }, [cardHeight]);
@@ -42,7 +42,26 @@ export const History = () => {
         <Stick style={stickStyle} />
         <Grid>
           {data.map((item, index, arr) => (
-            <HistoryCard key={item.id} $position={index + 1} ref={el => onCardRef(el, index, arr)}>
+            <HistoryCard
+              key={item.id}
+              $position={index + 1}
+              ref={el => {
+                onCardRef(el, index, arr);
+                if (el?.clientHeight < 150) {
+                  if (index === 0) {
+                    el.style.marginBottom = `${127 - el.clientHeight}px`;
+                  } else {
+                    const div1 = document.createElement('div');
+                    const div2 = document.createElement('div');
+                    const offset = 150 - el.clientHeight;
+                    div1.style.height = `${offset / 2}px`;
+                    div2.style.height = `${offset / 2}px`;
+                    el.prepend(div1);
+                    el.append(div2);
+                  }
+                }
+              }}
+            >
               <span>{new Date(item.data).toLocaleDateString()}</span>
               <Card description={item.description} history limitDescription={false} />
             </HistoryCard>
@@ -65,7 +84,7 @@ const HistoryCard = styled.div`
   position: relative;
 
   & > div {
-    min-height: 150px;
+    //min-height: 150px;
   }
 
   & > span {
@@ -118,7 +137,7 @@ const HistoryCard = styled.div`
     margin-top: -127px;
 
     @media (max-width: 600px) {
-      margin-top: 0;
+      margin-top: 0 !important;
     }
   }
 

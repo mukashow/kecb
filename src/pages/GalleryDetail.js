@@ -10,6 +10,7 @@ import { Helmet } from 'react-helmet';
 
 export const GalleryDetail = () => {
   const [popupImages, setPopupImages] = useState([]);
+  const [activeSlide, setActiveSlide] = useState(0);
   const [data, setData] = useState(null);
   const { id } = useParams();
   const { i18n, t } = useTranslation();
@@ -37,13 +38,16 @@ export const GalleryDetail = () => {
         </Head>
         <Content dangerouslySetInnerHTML={{ __html: data?.description }} />
         <Grid>
-          {data?.photos.map(({ image, id }) => (
+          {data?.photos.map(({ image, id }, index) => (
             <div
               key={id}
               style={{
                 backgroundImage: `url(${image})`,
               }}
-              onClick={() => setPopupImages(data.photos.map(({ image }) => image))}
+              onClick={() => {
+                setPopupImages(data.photos.map(({ image }) => image));
+                setActiveSlide(index);
+              }}
             >
               <img src={img} alt="" />
             </div>
@@ -51,6 +55,7 @@ export const GalleryDetail = () => {
         </Grid>
       </Root>
       <PopupSlider
+        activeSlide={activeSlide}
         images={popupImages}
         isOpen={!!popupImages.length}
         close={() => setPopupImages([])}

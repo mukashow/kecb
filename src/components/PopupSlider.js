@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Pagination, Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import styled from 'styled-components';
@@ -10,7 +10,17 @@ import 'swiper/css/navigation';
 import { Pagination as PaginationStyle, Navigation as NavigationStyle } from './Swiper';
 import { Icon } from '../ui';
 
-export const PopupSlider = ({ images, isOpen, close }) => {
+export const PopupSlider = ({ images, isOpen, close, activeSlide }) => {
+  const [swiper, setSwiper] = useState(null);
+
+  useEffect(() => {
+    if (isOpen) {
+      swiper?.slideTo(activeSlide);
+    } else {
+      setSwiper(null);
+    }
+  }, [isOpen, swiper]);
+
   return (
     <ReactModal
       isOpen={isOpen}
@@ -40,6 +50,8 @@ export const PopupSlider = ({ images, isOpen, close }) => {
         <Icon id="close" />
       </Close>
       <Slider
+        onSwiper={setSwiper}
+        slideToClickedSlide
         modules={[Pagination, Navigation]}
         pagination={{ el: '.slider-pagination' }}
         navigation={{ nextEl: '.slider-next', prevEl: '.slider-prev' }}

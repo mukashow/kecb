@@ -159,7 +159,7 @@ const Search = styled.div`
   height: 30px;
   border: 1px solid #004098;
   border-radius: 30px;
-  max-width: 250px;
+  max-width: 200px;
   width: 100%;
   display: flex;
   position: relative;

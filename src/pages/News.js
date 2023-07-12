@@ -11,11 +11,11 @@ import { Helmet } from 'react-helmet';
 
 const filter = [
   { title: 'GKS', key: 'GKS' },
-  { title: 'TOPIC', key: 'TOPIC' },
+  { title: 'TOPIK', key: 'TOPIK' },
   { title: 'koreanCourses', key: 'Курсы корейского языка' },
   { title: 'events', key: 'Мероприятия' },
-  { title: 'other', key: 'Разное' },
   { title: 'vacancies', key: 'Вакансии' },
+  { title: 'other', key: 'Другое' },
 ];
 
 export const News = () => {
