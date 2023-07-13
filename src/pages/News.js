@@ -15,7 +15,7 @@ const filter = [
   { title: 'koreanCourses', key: 'Курсы корейского языка' },
   { title: 'events', key: 'Мероприятия' },
   { title: 'vacancies', key: 'Вакансии' },
-  { title: 'Другое', key: 'Другое' },
+  { title: 'another', key: 'Другое' },
 ];
 
 export const News = () => {
