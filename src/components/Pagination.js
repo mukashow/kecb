@@ -94,6 +94,11 @@ const Root = styled.div`
     justify-content: center;
     color: #0c2044;
 
+    @media (max-width: 640px) {
+      height: 35px;
+      width: 35px;
+    }
+
     svg {
       width: 14px;
     }
