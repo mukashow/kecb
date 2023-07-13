@@ -57,46 +57,48 @@ export const NewsDetail = () => {
             </File>
           ))}
         </Files>
-        <div
-          style={{ position: 'relative' }}
-          ref={el => {
-            if (el) {
-              setOffset(el.offsetLeft);
-            }
-          }}
-        >
-          <Slider
-            spaceBetween={20}
-            slidesPerView={1}
-            breakpoints={{ 425: { slidesPerView: 'auto' } }}
-            modules={[Pagination, Navigation]}
-            pagination
-            navigation={{ prevEl: '.slider-prev', nextEl: '.slider-next' }}
-            $offset={offset}
+        {!!data?.images.length && (
+          <div
+            style={{ position: 'relative' }}
+            ref={el => {
+              if (el) {
+                setOffset(el.offsetLeft);
+              }
+            }}
           >
-            {data?.images.map(({ id, image }) => (
-              <SwiperSlide
-                key={id}
-                style={{ backgroundImage: `url(${image})` }}
-                onClick={() => setPopupImages(data.images.map(({ image }) => image))}
-              >
-                <img src={img} style={{ visibility: 'hidden' }} />
-              </SwiperSlide>
-            ))}
-            {data?.link_youtube && (
-              <SwiperSlide>
-                <ReactPlayer className="youtube" url={data?.link_youtube} controls />
-                <img src={img} style={{ visibility: 'hidden' }} />
-              </SwiperSlide>
-            )}
-          </Slider>
-          <NavigationArrow className="slider-prev">
-            <Icon id="arrow" />
-          </NavigationArrow>
-          <NavigationArrow className="slider-next">
-            <Icon id="arrow" />
-          </NavigationArrow>
-        </div>
+            <Slider
+              spaceBetween={20}
+              slidesPerView={1}
+              breakpoints={{ 425: { slidesPerView: 'auto' } }}
+              modules={[Pagination, Navigation]}
+              pagination
+              navigation={{ prevEl: '.slider-prev', nextEl: '.slider-next' }}
+              $offset={offset}
+            >
+              {data.images.map(({ id, image }) => (
+                <SwiperSlide
+                  key={id}
+                  style={{ backgroundImage: `url(${image})` }}
+                  onClick={() => setPopupImages(data.images.map(({ image }) => image))}
+                >
+                  <img src={img} style={{ visibility: 'hidden' }} />
+                </SwiperSlide>
+              ))}
+              {data.link_youtube && (
+                <SwiperSlide>
+                  <ReactPlayer className="youtube" url={data.link_youtube} controls />
+                  <img src={img} style={{ visibility: 'hidden' }} />
+                </SwiperSlide>
+              )}
+            </Slider>
+            <NavigationArrow className="slider-prev">
+              <Icon id="arrow" />
+            </NavigationArrow>
+            <NavigationArrow className="slider-next">
+              <Icon id="arrow" />
+            </NavigationArrow>
+          </div>
+        )}
       </Root>
       <Blob src={blob} />
       <Blob

@@ -23,7 +23,7 @@ export const Activity = () => {
   return (
     <Root>
       <SectionTitle fz="clamp(20px, 3vw, 32px)" mb="clamp(20px, 3vw, 38px)">
-        Деятельность центра
+        {t('centerActivity')}
       </SectionTitle>
       <TabWrap>
         <Tabs
