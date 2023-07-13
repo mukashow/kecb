@@ -5,11 +5,27 @@ import { useSearchParams } from 'react-router-dom';
 
 export const Pagination = ({ count }) => {
   const [searchParams, setSearchParams] = useSearchParams();
+
   const pagesCount = useMemo(() => {
     const pageSize = searchParams.get('page_size');
     if (!pageSize || !count) return null;
     return Math.ceil(count / +pageSize);
   }, [searchParams, count]);
+
+  const paginationArray = useMemo(() => {
+    const curPage = +searchParams.get('page');
+    const pages = [...Array(pagesCount).keys()];
+
+    if (pages.length - curPage <= 5) {
+      return pages.slice(pages.length - 6);
+    }
+
+    if (pages.length > 5) {
+      return [...pages.slice(curPage - 1, curPage + 4), '...', pages.at(-1)];
+    }
+
+    return pages.slice(curPage - 1, curPage + 4);
+  }, [pagesCount, searchParams]);
 
   return (
     <Root>
@@ -26,15 +42,21 @@ export const Pagination = ({ count }) => {
       </div>
       {typeof pagesCount === 'number' &&
         !isNaN(pagesCount) &&
-        [...Array(pagesCount).keys()].map(key => (
-          <div
-            className={+searchParams.get('page') === key + 1 ? 'active' : ''}
-            key={key}
-            onClick={() => setSearchParams({ page: key + 1, page_size: 10 })}
-          >
-            {key + 1}
-          </div>
-        ))}
+        paginationArray.map(key =>
+          key === '...' ? (
+            <div key={key} style={{ pointerEvents: 'none' }}>
+              {key}
+            </div>
+          ) : (
+            <div
+              className={+searchParams.get('page') === key + 1 ? 'active' : ''}
+              key={key}
+              onClick={() => setSearchParams({ page: key + 1, page_size: 10 })}
+            >
+              {key + 1}
+            </div>
+          )
+        )}
       <div
         style={{ transform: 'rotate(180deg)' }}
         aria-disabled={+searchParams.get('page') === pagesCount}
