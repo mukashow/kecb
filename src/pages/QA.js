@@ -29,7 +29,7 @@ const filter = [
   { title: 'koreanCourses', key: 'Курсы корейского' },
   { title: 'TOPIK', key: 'TOPIK' },
   { title: 'GKS', key: 'GKS' },
-  { title: 'grants', key: 'Гранты для этнических корейцев' },
+  { title: 'grants', key: 'Гранты на обучение в Корее' },
   { title: 'another', key: 'Другое' },
 ];
 

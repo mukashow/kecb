@@ -110,7 +110,7 @@ export const Footer = () => {
           </MapButton>
         </Map>
       </Inner>
-      <Copyright>Developed by Remotion</Copyright>
+      {/*<Copyright>Developed by Remotion</Copyright>*/}
       <img src={blob} />
       <img src={blob} />
     </Root>

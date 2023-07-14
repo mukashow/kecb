@@ -25,9 +25,10 @@ export const Banner = () => {
         </Text>
         <Text
           color="#252525"
+          fw={700}
           as="p"
           lh="150%"
-          fz="clamp(14px, 2vw, 16px)"
+          fz="clamp(16px, 1.9vw, 22px)"
           style={{ maxWidth: 590 }}
         >
           {data?.description}
