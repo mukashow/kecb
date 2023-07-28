@@ -1,79 +1,39 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { Icon } from '../ui';
 import { useSearchParams } from 'react-router-dom';
+import ReactPaginate from 'react-paginate';
+import { Icon } from '../ui';
 
 export const Pagination = ({ count }) => {
+  const pageCount = Math.ceil(count / 10);
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const pagesCount = useMemo(() => {
-    const pageSize = searchParams.get('page_size');
-    if (!pageSize || !count) return null;
-    return Math.ceil(count / +pageSize);
-  }, [searchParams, count]);
-
-  const paginationArray = useMemo(() => {
-    const curPage = +searchParams.get('page');
-    const pages = [...Array(pagesCount).keys()];
-
-    if (pages.length - curPage <= 5) {
-      return pages.slice(pages.length - 6);
-    }
-
-    if (pages.length > 5) {
-      return [...pages.slice(curPage - 1, curPage + 4), '...', pages.at(-1)];
-    }
-
-    return pages.slice(curPage - 1, curPage + 4);
-  }, [pagesCount, searchParams]);
+  const handlePageClick = event => {
+    searchParams.set('page', String(event.selected + 1));
+    setSearchParams(searchParams);
+  };
 
   return (
-    <Root>
-      <div
-        aria-disabled={+searchParams.get('page') === 1}
-        onClick={() =>
-          setSearchParams({
-            page: +searchParams.get('page') - 1,
-            page_size: 10,
-          })
-        }
-      >
-        <Icon id="paginationArrow" />
-      </div>
-      {typeof pagesCount === 'number' &&
-        !isNaN(pagesCount) &&
-        paginationArray.map(key =>
-          key === '...' ? (
-            <div key={key} style={{ pointerEvents: 'none' }}>
-              {key}
-            </div>
-          ) : (
-            <div
-              className={+searchParams.get('page') === key + 1 ? 'active' : ''}
-              key={key}
-              onClick={() => setSearchParams({ page: key + 1, page_size: 10 })}
-            >
-              {key + 1}
-            </div>
-          )
-        )}
-      <div
-        style={{ transform: 'rotate(180deg)' }}
-        aria-disabled={+searchParams.get('page') === pagesCount}
-        onClick={() =>
-          setSearchParams({
-            page: +searchParams.get('page') + 1,
-            page_size: 10,
-          })
-        }
-      >
-        <Icon id="paginationArrow" />
-      </div>
-    </Root>
+    <Root
+      previousLabel={<Icon id="paginationArrow" />}
+      nextLabel={
+        <div style={{ transform: 'rotate(180deg)' }}>
+          <Icon id="paginationArrow" />
+        </div>
+      }
+      onPageChange={handlePageClick}
+      forcePage={+searchParams.get('page') - 1}
+      marginPagesDisplayed={1}
+      pageRangeDisplayed={4}
+      pageCount={pageCount}
+      renderOnZeroPageCount={null}
+      activeClassName="active"
+      disabledClassName="disabled"
+    />
   );
 };
 
-const Root = styled.div`
+const Root = styled(ReactPaginate)`
   background: #eaecf0;
   border: 0.624204px solid #e7edfb;
   border-radius: 7.49044px;
@@ -93,6 +53,25 @@ const Root = styled.div`
     align-items: center;
     justify-content: center;
     color: #0c2044;
+    position: relative;
+
+    a {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &:last-child,
+    &:first-child {
+      svg {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
 
     @media (max-width: 640px) {
       height: 35px;
@@ -103,12 +82,12 @@ const Root = styled.div`
       width: 14px;
     }
 
-    &[aria-disabled='true'] {
+    &.disabled {
       color: #a6a6a6;
       pointer-events: none;
     }
 
-    &:not([aria-disabled='true']):hover,
+    &:not(&.disabled):hover,
     &.active {
       background: #004098;
       color: white;
